@@ -25,6 +25,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Node_SubPizza.cpp">
+		<Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Node_MainPizza.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Neighbourhood.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -36,6 +42,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Node_SubPizza.h">
+		 <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Node_MainPizza.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Neighbourhood.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
