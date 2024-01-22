@@ -128,11 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BasicNode.cpp" />
+    <ClCompile Include="Node_SubPizza.cpp" />
     <ClCompile Include="Pizza_finder.cpp" />
     <ClCompile Include="Point.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicNode.h" />
+    <ClInclude Include="Node_SubPizza.h" />
     <ClInclude Include="Point.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -24,12 +24,18 @@
     <ClCompile Include="BasicNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Node_SubPizza.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Point.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BasicNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Node_SubPizza.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
