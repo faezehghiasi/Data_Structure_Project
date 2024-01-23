@@ -9,5 +9,7 @@ class BasicNode {
 	BasicNode* right;
 	string  name;
 public:
-	BasicNode(double xVal, double yVal, string nameVal) : coordinates(xVal, yVal), name(nameVal) {}
+	BasicNode(double xVal, double yVal, string nameVal) : coordinates(xVal, yVal), name(nameVal),left(nullptr),right(nullptr) {}
+	virtual void print(){};
+	friend class TwoDTree;
 };
