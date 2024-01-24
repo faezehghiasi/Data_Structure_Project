@@ -36,6 +36,9 @@
     <ClCompile Include="TwoDTree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UndoNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Point.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TwoDTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UndoNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

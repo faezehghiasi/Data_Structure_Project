@@ -15,6 +15,6 @@ public:
 	TwoDTree():root(nullptr){}
 	void addMainBranch(Node_MainPizza*);
 	void addSubBranch(Node_SubPizza*);
-
+	friend class UndoNode;
 };
 

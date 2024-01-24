@@ -9,4 +9,6 @@ public:
 	Point& operator =(const Point& p);
 	friend class BasicNode;
 	friend class TwoDTree;
+	void set_x(double xVal);
+	void set_y(double yVal);
 };
