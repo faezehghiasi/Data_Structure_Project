@@ -10,6 +10,6 @@ private:
 	Point p4;
 	string name;
 public:
-	Neighbourhood(Point p1Val, Point p2Val, Point p3Val, Point p4Val);
+	Neighbourhood(Point p1Val, Point p2Val, Point p3Val, Point p4Val,string Name);
 };
 

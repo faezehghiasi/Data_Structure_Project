@@ -48,3 +48,27 @@ BasicNode* TwoDTree::buildTree(bool divX, vector<BasicNode*>nodes) {
     return  newNode;
 }
 //****************************************************************************
+// ############## incompelte #################3
+//void TwoDTree::deleteNode(Point removeCoor) {
+//
+//
+//    if (root == NULL)return;//exception handeling of empty tree
+//
+//
+//    bool dimension = true;
+//    if (removeCoor == this->root->coordinates) {
+//        BasicNode* removeNode = root;
+//       this->nodes.erase( find(this->nodes.begin(), this->nodes.end(), root));
+//        
+//       root = buildTree(dimension, this->nodes);
+//       return;
+//    }
+//
+//    if(dimension){
+//    //dimention is x
+//        if(removeCoor.x<=this->root->coordinates.x)
+//    }
+//    else{}
+//
+//}
+//****************************************************************************

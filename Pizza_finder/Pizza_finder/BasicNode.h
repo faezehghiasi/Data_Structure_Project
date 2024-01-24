@@ -12,4 +12,5 @@ public:
 	BasicNode(double xVal, double yVal, string nameVal) : coordinates(xVal, yVal), name(nameVal),left(nullptr),right(nullptr) {}
 	virtual void print(){};
 	friend class TwoDTree;
+	bool operator ==(const BasicNode&);
 };

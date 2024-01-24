@@ -18,21 +18,32 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree,
 		//inja bakhsh regex kareh vase sadegi vorrodi
 		regex check("Add-N \\[[a-z]+\\] \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\) \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\) \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\) \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");
 		if (!regex_match(order, check))throw 0;
+		string nameOfNei = order.substr(order.find("[") + 1, order.find("]") - 7);
 		int locOfParentheses = order.find("(");
 		Point points[4];
 		string tempOrder, temp2Order;
+		tempOrder = order.substr(locOfParentheses);
+		int index = 0;
 		do {
-			int i = 0;
-			tempOrder = order.substr(locOfParentheses);
-			temp2Order = tempOrder.substr(0,tempOrder.find(")"));
+			
+			temp2Order = tempOrder.substr(0,tempOrder.find(")")+1);
 			string x, y;
-			x = temp2Order.substr(temp2Order.find("(")+1, temp2Order.find(",") - 1);
-			y= temp2Order.substr(temp2Order.find(",") + 1, temp2Order.find(")") - 1);
-			tempOrder = tempOrder.substr(tempOrder.find(")") + 2);
-			points[i].set_x(stod(x));
-			points[i].set_y(stod(y));
-		} while (temp2Order.size()!=tempOrder.size());
-		Neighbourhood newNeigh(points[0], points[1], points[2], points[3]);
+			x = temp2Order.substr(1, temp2Order.find(",") - 1);
+			y= temp2Order.substr(temp2Order.find(",") + 1, temp2Order.find(")") - 3);
+			points[index].set_x(stod(x));
+			points[index].set_y(stod(y));
+			if(temp2Order.size()!= tempOrder.size())tempOrder = tempOrder.substr(tempOrder.find(")") + 2);
+			else {
+				index++;
+				x = tempOrder.substr(tempOrder.find("(") + 1, tempOrder.find(",") - 1);
+				y = tempOrder.substr(tempOrder.find(",") + 1, tempOrder.find(")") -3 );
+				points[index].set_x(stod(x));
+				points[index].set_y(stod(y));
+				break;
+			}
+			index++;
+		} while (true);
+		Neighbourhood newNeigh(points[0], points[1], points[2], points[3],nameOfNei);
 		neibhd.push_back(newNeigh);
 		return;
 		
