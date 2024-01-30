@@ -135,6 +135,14 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		string y = order.substr(order.find(",")+1, order.find(")") -order.find(",")-1);
 		Point remvNode(stod(x), stod(y));
 	}
+	else if (order.find("Near-P") != -1) {
+		regex check("Near-P \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");
+		if (!regex_match(order, check))throw 0;
+		string x = order.substr(8, order.find(",") - order.find("(") - 1);
+		string y = order.substr(order.find(",") + 1, order.find(")") - order.find(",") - 1);
+		Point queryPoint(stod(x), stod(y));
+		currTree.findNearestNeighbourhood(queryPoint, true, currTree.getRoot());
+	}
 }
 //***************************************************************************
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree) {

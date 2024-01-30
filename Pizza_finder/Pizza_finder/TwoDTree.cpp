@@ -76,45 +76,83 @@ void TwoDTree::rangeSearch(bool divX, BasicNode* node, double x, double y, doubl
     }
 }
 //***********************************************************************************
-BasicNode* TwoDTree::findNearestNeighbourhood(const Point& queryPoint, bool dimention, BasicNode* subroot)
+bool TwoDTree:: shoulReplace(Point queryNode, Point currentNode, Point otherNode)
+{
+    if (queryNode.distanceSquared(currentNode) < queryNode.distanceSquared(otherNode))return false;
+    return true;
+
+}
+//***************************************************************************
+BasicNode* TwoDTree::findNearestNeighbourhood(Point queryPoint, bool dimention, BasicNode* subroot)
 {
     //exist query point in 2dtree
     if (subroot->coordinates == queryPoint)return subroot;
     //subroot be a leaf
     if (subroot->left == NULL and subroot->right == NULL)return subroot;
     BasicNode* nearestNode;
-    bool CurrrentBranch_lest = false;
-    if (this->isFirstPointSmaller(queryPoint, subroot->coordinates, dimention)) {
-        if (subroot->left != NULL) {
+    bool CurrrentBranch_left = false;
+    if (this->isFirstPointSmaller(queryPoint, subroot->coordinates, dimention)) 
+    {
+        if (subroot->left != NULL) 
+        {
             nearestNode = findNearestNeighbourhood(queryPoint, !dimention, subroot->left);
-            CurrrentBranch_lest = true;
+            CurrrentBranch_left = true;
         }
         else  nearestNode = findNearestNeighbourhood(queryPoint, !dimention, subroot->right);
     }
-    else {
-        if(subroot->right!=NULL) nearestNode = findNearestNeighbourhood(queryPoint, !dimention, subroot->right);
-        else {
+    else 
+    {
+        if (subroot->right != NULL) nearestNode = findNearestNeighbourhood(queryPoint, !dimention, subroot->right);
+        else
+        {
             nearestNode = findNearestNeighbourhood(queryPoint, !dimention, subroot->left);
-            CurrrentBranch_lest = true;
+            CurrrentBranch_left = true;
         }
     }
 
-    if (/*should replace*/)nearestNode = subroot;
+    if (this->shoulReplace(queryPoint, nearestNode->coordinates, subroot->coordinates))nearestNode = subroot;
 
-    double radius =/*calculate*/;
+    double radius = queryPoint.distanceSquared(nearestNode->coordinates);
     double shortDist;//The shortest distance between two points
-    if (dimention)shortDist = pow(queryPoint.x - subroot->coordinates.x,2);
+    if (dimention)shortDist = pow(queryPoint.x - subroot->coordinates.x, 2);
     else shortDist = pow(queryPoint.y - subroot->coordinates.y, 2);
-
-
-
+    if (radius >= shortDist) 
+    {
+        if (CurrrentBranch_left)
+        {
+            if (subroot->right != NULL) 
+            {
+                BasicNode* tempNear = findNearestNeighbourhood(queryPoint, !dimention, subroot->right);
+                if (shoulReplace(queryPoint, nearestNode->coordinates, tempNear->coordinates)) nearestNode = tempNear;
+            }
+        }
+        else 
+        {
+            if (subroot->left != NULL) 
+            {
+                BasicNode* tempNear = findNearestNeighbourhood(queryPoint, !dimention, subroot->left);
+                if (shoulReplace(queryPoint, nearestNode->coordinates, tempNear->coordinates)) nearestNode = tempNear;
+            }
+        }
+    }
+    return nearestNode;
 
 }
 //***************************************************************************
 bool TwoDTree::isFirstPointSmaller(const Point& first, const Point& second, bool dim) {
-    if (!dim) {
+    if (!dim) 
+    {
         if (first.x < second.x)return true;
         else return false;
     }
+    else
+    {
+        if (first.y < second.y)return true;
+        else return false;
+    }
+}
+//***************************************************************************
+BasicNode* TwoDTree::getRoot() {
+    return this->root;
 }
 
