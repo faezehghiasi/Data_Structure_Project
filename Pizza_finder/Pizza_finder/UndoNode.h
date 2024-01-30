@@ -8,7 +8,7 @@ private:
 	UndoNode* prev;
 public:
 	UndoNode():next(nullptr),prev(nullptr){}
-	UndoNode(const TwoDTree& nowTree);
+	UndoNode( TwoDTree nowTree);
 	friend class UndoList;
 };
 

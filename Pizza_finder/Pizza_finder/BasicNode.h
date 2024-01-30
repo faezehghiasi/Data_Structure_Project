@@ -14,4 +14,5 @@ public:
 	virtual void print(){};
 	friend class TwoDTree;
 	bool operator ==(BasicNode);
+	virtual BasicNode& operator= (BasicNode);
 };
