@@ -128,21 +128,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BasicNode.cpp" />
+    <ClCompile Include="HashTableOfTrees.cpp" />
     <ClCompile Include="Node_SubPizza.cpp" />
     <ClCompile Include="Neighbourhood.cpp" />
     <ClCompile Include="Node_MainPizza.cpp" />
     <ClCompile Include="Pizza_finder.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="TwoDTree.cpp" />
+    <ClCompile Include="UndoList.cpp" />
     <ClCompile Include="UndoNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicNode.h" />
+    <ClInclude Include="HashTableOfTrees.h" />
     <ClInclude Include="Node_SubPizza.h" />
     <ClInclude Include="Neighbourhood.h" />
     <ClInclude Include="Node_MainPizza.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="TwoDTree.h" />
+    <ClInclude Include="UndoList.h" />
     <ClInclude Include="UndoNode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
