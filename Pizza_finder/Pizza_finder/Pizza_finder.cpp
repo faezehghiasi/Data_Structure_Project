@@ -16,7 +16,7 @@ using namespace std;
 void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree);
 void AddBranchPizzeria(string name, string mainBranchName, Point p, TwoDTree& currTree);
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree);
-//************************************************************
+//*****************************************************************************
 int main(void) {
 	HashTableOfTrees hashTableOfTrees;
 	string order;
@@ -24,7 +24,7 @@ int main(void) {
 	int countOfOrder = 0;
 	vector<Neighbourhood> Neighbourhoods;
 	TwoDTree currentTree;
-	//*******************************************************
+	//*************************************************************************
 	while (true) {
 		UndoList listOftrees;
 		system("cls");
@@ -106,7 +106,7 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		string name = order.substr((order.find("[") + 1), (order.find("]") - order.find("[") - 1));
 		string x = order.substr(order.find("(") + 1, (order.find(",") - order.find("(") - 1));
 		string y = order.substr(order.find(",") + 1, (order.find(")") - order.find(",") - 1));
-		Point point(stoi(x), stoi(y));
+		Point point(stod(x), stod(y));
 		AddMainBranchPizzeria(name, point, currTree);
 	}
 	else if (order.find("Add-Br") != -1) {
@@ -117,8 +117,16 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		string mainBranchName = order.substr((order.find("[") + 1), (order.find("]") - order.find("[") - 1));
 		string x = order.substr(order.find("(") + 1, (order.find(",") - order.find("(") - 1));
 		string y = order.substr(order.find(",") + 1, (order.find(")") - order.find(",") - 1));
-		Point point(stoi(x), stoi(y));
+		Point point(stod(x), stod(y));
 		AddBranchPizzeria(name,mainBranchName, point, currTree);
+	}
+	else if (order.find("Avail-P") != -1) {
+		regex pattern("\\b([-+]?\\d*\\.?\\d+)\\s*\\(\\s*([-+]?\\d*\\.?\\d+)\\s*,\\s*([-+]?\\d*\\.?\\d+)\\s*\\)\\b");
+		if (!regex_match(order, pattern))throw 0;
+		string radius = order.substr(0, order.find("(") - 1);
+		string x = order.substr(order.find("(") + 1, (order.find(",") - order.find("(") - 1));
+		string y = order.substr(order.find(",") + 1, (order.find(")") - order.find(",") - 1));
+		currTree.rangeSearch(stod(x), stod(y), stod(radius));
 	}
 }
 //***************************************************************************

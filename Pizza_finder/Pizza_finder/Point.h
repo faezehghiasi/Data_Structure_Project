@@ -11,5 +11,6 @@ public:
 	friend class TwoDTree;
 	void set_x(double xVal);
 	void set_y(double yVal);
+	double distanceSquared(Point);
 	bool operator==(Point);
 };

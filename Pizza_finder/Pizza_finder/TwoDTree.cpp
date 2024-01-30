@@ -55,3 +55,23 @@ void TwoDTree::deleteNode(Point removeCoor) {
     this->root=this->buildTree(true, this->nodes);
 }
 //****************************************************************************
+void TwoDTree:: rangeSearch(double x, double y, double dist) {
+    double radius = dist * dist;
+    rangeSearch(true, root, x, y, radius);
+}
+//******************************************************************************
+void TwoDTree::rangeSearch(bool divX, BasicNode* node, double x, double y, double radius) {
+    double d = node->coordinates.distanceSquared(Point(x, y));
+    if (radius >= d) {
+        cout << node->name << " " << "location : " << "( " << node->coordinates.x << ", " << node->coordinates.y << " )" << endl;
+    }
+    double delta = divX ? x - node->coordinates.x : y - node->coordinates.y;
+    double delta2 = delta * delta;
+    BasicNode* node1 = (delta < 0) ? node->left : node->right;
+    BasicNode* node2 = (delta < 0) ? node->right : node->left;
+    rangeSearch(!divX, node1, x, y, radius);
+    if (delta2 < radius) {
+        rangeSearch(!divX, node2, x, y, radius);
+    }
+}
+//***********************************************************************************
