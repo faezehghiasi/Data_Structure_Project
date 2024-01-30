@@ -52,6 +52,7 @@ void TwoDTree::deleteNode(Point removeCoor) {
 //$$$$$$$$$$$$$$$$$$$$$$$ exception handeling $$$$$$$$$$$$$$$$$$$$$$$$
     auto locOfRmvNode = find_if(this->nodes.begin(), this->nodes.end(), [&](auto a) { return removeCoor == a->coordinates; });
     this->nodes.erase(locOfRmvNode);
+    this->clearTree(this->root);
     this->root=this->buildTree(true, this->nodes);
 }
 //****************************************************************************
