@@ -7,25 +7,28 @@
 #include"Point.h"
 #include"TwoDTree.h"
 #include"UndoNode.h"
+#include"UndoList.h"
+#include"HashTableOfTrees.h"
 #include<stdlib.h>
 #include<regex>
 #include<string.h>
 using namespace std;
-void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree, vector<pair<int, UndoNode>> hOTrees);
+void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree);
 void AddBranchPizzeria(string name, string mainBranchName, Point p, TwoDTree& currTree);
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree);
 //************************************************************
 int main(void) {
+	HashTableOfTrees hashTableOfTrees;
 	string order;
 	string currentOrder;
 	int countOfOrder = 0;
 	vector<Neighbourhood> Neighbourhoods;
-	vector<pair<int,UndoNode>> hashOfTrees;
 	TwoDTree currentTree;
 	//*******************************************************
 	while (true) {
+		UndoList listOftrees;
 		system("cls");
-		cout << "\nEnter the command you want : (Enter Exit for end and Help to see order's form) : ";
+		cout << "Enter the command you want : (Enter Exit for end and Help to see order's form) : ";
 		getline(cin, order);
 		//******************************************************
 		if (order == "Exit")exit(1);
@@ -43,7 +46,7 @@ int main(void) {
 			currentOrder = order.substr(0, it - 1);
 			try
 			{
-				validCheck(currentOrder, Neighbourhoods, currentTree, hashOfTrees);
+				validCheck(currentOrder, Neighbourhoods, currentTree);
 			}
 			catch (int x)
 			{
@@ -54,8 +57,11 @@ int main(void) {
 				break;
 			}
 			countOfOrder++;
+			UndoNode* newTree = new UndoNode(currentTree);
+			listOftrees.pushBack(newTree);
 			if(it!=-1)order = order.substr(it + 3);
 		} while (it != -1);
+		hashTableOfTrees.insert(listOftrees);
 	}
 }
 /*******************validation******************/
@@ -109,6 +115,7 @@ void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree) {
 	Node_MainPizza* newPizzeria = new Node_MainPizza(p, name);
 	currTree.addMainBranch(newPizzeria);
 	// update hash function;
+	//error 
 }
 //***************************************************************************
 void AddBranchPizzeria(string name,string mainBranchName, Point p, TwoDTree& currTree) {
@@ -117,4 +124,5 @@ void AddBranchPizzeria(string name,string mainBranchName, Point p, TwoDTree& cur
 	// update hash function;
 	// update tree
 	// update vector
+    // error
 }
