@@ -114,6 +114,14 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree,
 		Point point(stoi(x), stoi(y));
 		AddBranchPizzeria(name,mainBranchName, point, currTree);
 	}
+	else if (order.find("Del-Br") != -1) {
+		regex check("Del-Br \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");
+		if (!regex_match(order, check))throw 0;
+		string x = order.substr(8, order.find(",")-order.find("(")-1);
+		string y = order.substr(order.find(",")+1, order.find(")") -order.find(",")-1);
+		Point remvNode(stod(x), stod(y));
+
+	}
 }
 //***************************************************************************
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree) {

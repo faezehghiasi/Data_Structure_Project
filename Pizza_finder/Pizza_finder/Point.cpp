@@ -10,7 +10,7 @@ void Point::set_x(double xVal) {
 void Point::set_y(double yVal) {
 	this->y = yVal;
 }
-bool Point::operator==(const Point& p) {
+bool Point::operator == ( Point p) {
 	if (this->x == p.x and this->y == p.y)return true;
 	return false;
 }

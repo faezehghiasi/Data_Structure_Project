@@ -50,8 +50,9 @@ BasicNode* TwoDTree::buildTree(bool divX, vector<BasicNode*>nodes) {
 //****************************************************************************
 void TwoDTree::deleteNode(Point removeCoor) {
 //$$$$$$$$$$$$$$$$$$$$$$$ exception handeling $$$$$$$$$$$$$$$$$$$$$$$$
-    auto locOfRmvNode = find(this->nodes.begin(), this->nodes.end(), removeCoor);
+    auto locOfRmvNode = find_if(this->nodes.begin(), this->nodes.end(), [&](auto a) {return (removeCoor==a->coordinates); });
     this->nodes.erase(locOfRmvNode);
+    this->clearTree(this->root);
     this->root=this->buildTree(true, this->nodes);
 }
 //****************************************************************************
