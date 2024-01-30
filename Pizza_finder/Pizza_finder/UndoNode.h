@@ -4,10 +4,11 @@ class UndoNode
 {
 private:
 	TwoDTree data;
-	TwoDTree* next;
-	TwoDTree* prev;
+	UndoNode* next;
+	UndoNode* prev;
 public:
 	UndoNode():next(nullptr),prev(nullptr){}
 	UndoNode(const TwoDTree& nowTree);
+	friend class UndoList;
 };
 
