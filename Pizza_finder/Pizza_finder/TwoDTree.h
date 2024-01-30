@@ -16,6 +16,8 @@ public:
 	void addMainBranch(Node_MainPizza*);
 	void addSubBranch(Node_SubPizza*);
 	void deleteNode(Point removeCoord);
+	BasicNode* findNearestNeighbourhood(const Point& queryPoint,bool dimention,BasicNode* subroot);
+	bool isFirstPointSmaller(const Point& first, const Point& second, bool dim);
 	friend class UndoNode;
 };
 
