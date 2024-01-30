@@ -9,6 +9,7 @@ private:
 	vector< Node_SubPizza> branches;
 public:
 	Node_MainPizza(double xVal, double yVal, string nameVal): BasicNode(xVal, yVal, nameVal){}
+	Node_MainPizza(Point p, string nameVal) : BasicNode(p, nameVal) {}
 	void addBranch(Node_SubPizza input);
 	void print(){}
 	friend class TwoDTree;
