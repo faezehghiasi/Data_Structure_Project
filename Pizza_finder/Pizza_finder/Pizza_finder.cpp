@@ -65,7 +65,7 @@ int main(void) {
 	}
 }
 /*******************validation******************/
-void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree, vector<pair<int, UndoNode>> hOTrees) {
+void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree) {
 	//***** add neighbourhood *****
 	if (order.find("Add-N") != -1) {
 		//inja bakhsh regex kareh vase sadegi vorrodi
