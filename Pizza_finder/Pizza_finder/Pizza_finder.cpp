@@ -123,7 +123,7 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 	else if (order.find("Avail-P") != -1) {
 		regex pattern("Avail-P -?\\d+(\\.\\d+)?\\s+\\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");
 		if (!regex_match(order, pattern))throw 0;
-		string radius = order.substr(0, order.find("(") - 1);
+		string radius = order.substr(order.find("P")+1, order.find("(") - order.find("P")-1);
 		string x = order.substr(order.find("(") + 1, (order.find(",") - order.find("(") - 1));
 		string y = order.substr(order.find(",") + 1, (order.find(")") - order.find(",") - 1));
 		currTree.rangeSearch(stod(x), stod(y), stod(radius));

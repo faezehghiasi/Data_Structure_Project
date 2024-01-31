@@ -109,7 +109,6 @@ BasicNode* TwoDTree::findNearestNeighbourhood(Point queryPoint, bool dimention, 
             CurrrentBranch_left = true;
         }
     }
-
     if (this->shoulReplace(queryPoint, nearestNode->coordinates, subroot->coordinates))nearestNode = subroot;
 
     double radius = queryPoint.distanceSquared(nearestNode->coordinates);
