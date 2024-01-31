@@ -45,7 +45,11 @@
     <ClCompile Include="HashTableOfTrees.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="CustomException.cpp">
+=======
+    <ClCompile Include="HashTableOfMainNodes.cpp">
+>>>>>>> fatemeh
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,7 +81,11 @@
     <ClInclude Include="HashTableOfTrees.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="CustomException.h">
+=======
+    <ClInclude Include="HashTableOfMainNodes.h">
+>>>>>>> fatemeh
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="BasicNode.cpp" />
     <ClCompile Include="CustomException.cpp" />
+    <ClCompile Include="HashTableOfMainNodes.cpp" />
     <ClCompile Include="HashTableOfTrees.cpp" />
     <ClCompile Include="Node_SubPizza.cpp" />
     <ClCompile Include="Neighbourhood.cpp" />
@@ -142,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="BasicNode.h" />
     <ClInclude Include="CustomException.h" />
+    <ClInclude Include="HashTableOfMainNodes.h" />
     <ClInclude Include="HashTableOfTrees.h" />
     <ClInclude Include="Node_SubPizza.h" />
     <ClInclude Include="Neighbourhood.h" />
