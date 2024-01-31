@@ -18,10 +18,7 @@ public:
 	bool operator ==(BasicNode);
 	Point getCoordinates();
 	virtual BasicNode& operator= (BasicNode);
-
-
-	friend class HashTableOfMainNodes;
-
-
-
+	string getName();
+	bool getIsDeleted();
+	void setIsDelete(bool deleteVal);
 };
