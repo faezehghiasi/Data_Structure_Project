@@ -58,21 +58,31 @@ void TwoDTree::deleteNode(Point removeCoor) {
 //****************************************************************************
 void TwoDTree:: rangeSearch(double x, double y, double dist) {
     double radius = dist * dist;
-    rangeSearch(true, root, x, y, radius);
+    static bool res = false;
+    rangeSearch(true, root, x, y, radius,res);
+    if (!res) cout << "There is no pizzeria in the desired radius around this point..." << endl;
+
+
+
+    /////////////////////// class exeption/////////////////////////////////////
 }
 //******************************************************************************
-void TwoDTree::rangeSearch(bool divX, BasicNode* node, double x, double y, double radius) {
+void TwoDTree::rangeSearch(bool divX, BasicNode* node, double x, double y, double radius,bool& res) {
+    if (node == nullptr) {
+        return;
+    }
     double d = node->coordinates.distanceSquared(Point(x, y));
     if (radius >= d) {
+        res = true;
         cout << node->name << " " << "location : " << "( " << node->coordinates.x << ", " << node->coordinates.y << " )" << endl;
     }
     double delta = divX ? x - node->coordinates.x : y - node->coordinates.y;
     double delta2 = delta * delta;
-    BasicNode* node1 = (delta < 0) ? node->left : node->right;
-    BasicNode* node2 = (delta < 0) ? node->right : node->left;
-    rangeSearch(!divX, node1, x, y, radius);
+    BasicNode* node1 = (delta <= 0) ? node->left : node->right;
+    BasicNode* node2 = (delta <= 0) ? node->right : node->left;
+    rangeSearch(!divX, node1, x, y, radius,res);
     if (delta2 < radius) {
-        rangeSearch(!divX, node2, x, y, radius);
+        rangeSearch(!divX, node2, x, y, radius,res);
     }
 }
 //***********************************************************************************
@@ -156,5 +166,13 @@ bool TwoDTree::isFirstPointSmaller(const Point& first, const Point& second, bool
 //***************************************************************************
 BasicNode* TwoDTree::getRoot() {
     return this->root;
+}
+//*************************************************************************
+void TwoDTree::display(BasicNode* node) {
+    if (node != nullptr) {
+        display(node->left);
+        display(node->right);
+        cout << "X : " << node->coordinates.x << "  Y : " << node->coordinates.y << endl;
+    }
 }
 

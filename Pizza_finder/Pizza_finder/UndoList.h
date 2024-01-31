@@ -7,5 +7,6 @@ private:
 public:
 	UndoList() :root(nullptr){}
 	void pushBack(UndoNode*);
+	friend class HashTableOfTrees;
 };
 

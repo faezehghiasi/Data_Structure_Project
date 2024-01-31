@@ -11,7 +11,7 @@ private:
 	vector<BasicNode*>nodes;
 	void clearTree(BasicNode*);
 	BasicNode* buildTree(bool, vector<BasicNode*>);
-	void rangeSearch(bool divX, BasicNode* node, double x, double y, double radius);
+	void rangeSearch(bool divX, BasicNode* node, double x, double y, double radius, bool& res);
 public:
 	TwoDTree() :root(nullptr) {}
 	void addMainBranch(Node_MainPizza*);
@@ -23,6 +23,10 @@ public:
 	friend class UndoNode;
 	void rangeSearch(double x, double y, double radius);
 	BasicNode* getRoot();
-	
+
+
+
+	void display(BasicNode* node);
+	friend class HashTableOfTrees;
 };
 

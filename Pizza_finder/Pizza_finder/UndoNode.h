@@ -10,5 +10,6 @@ public:
 	UndoNode():next(nullptr),prev(nullptr){}
 	UndoNode( TwoDTree nowTree);
 	friend class UndoList;
+	friend class HashTableOfTrees;
 };
 
