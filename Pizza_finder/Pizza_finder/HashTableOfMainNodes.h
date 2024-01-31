@@ -3,13 +3,18 @@
 class HashTableOfMainNodes
 {
 private:
-	BasicNode** hashtable[113];
+	BasicNode*** hashtable;
 	unsigned int sizeOfTable;
 	unsigned int hash2(const string& str);
 	unsigned int hash1(const string& str);
 	unsigned int finalHash(const string& key, int i);
+	bool isPrime(int num);
+	int nextPrime(int m);
 public:
-	HashTableOfMainNodes():sizeOfTable(113){}
-
+	HashTableOfMainNodes():sizeOfTable(113){
+		hashtable = new BasicNode**[sizeOfTable];
+	}
+	void insert(BasicNode**);
+	void resize();
 };
 
