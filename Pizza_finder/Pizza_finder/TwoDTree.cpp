@@ -1,16 +1,20 @@
 #include "TwoDTree.h"
 #include<algorithm>
 #include"CustomException.h"
+#include"HashTableOfMainNodes.h"
 using namespace std;
+extern HashTableOfMainNodes hashTableOfMainNodes;
 void TwoDTree::addMainBranch(Node_MainPizza* newPizzaStore) {
     nodes.push_back(newPizzaStore);
     clearTree(root);
+    hashTableOfMainNodes.clear();
     root = buildTree(true, nodes);
 }
 //****************************************************************************
 void TwoDTree::addSubBranch(Node_SubPizza* newPizzaStore) {
     nodes.push_back(newPizzaStore);
     clearTree(root);
+    hashTableOfMainNodes.clear();
     root = buildTree(true, nodes);
 }
 //****************************************************************************
@@ -54,6 +58,7 @@ void TwoDTree::deleteNode(Point removeCoor) {
     auto locOfRmvNode = find_if(this->nodes.begin(), this->nodes.end(), [&](auto a) { return removeCoor == a->coordinates; });
     this->nodes.erase(locOfRmvNode);
     this->clearTree(this->root);
+    hashTableOfMainNodes.clear();
     this->root=this->buildTree(true, this->nodes);
 }
 //****************************************************************************

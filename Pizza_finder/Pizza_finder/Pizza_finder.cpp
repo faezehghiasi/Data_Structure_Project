@@ -14,8 +14,10 @@
 #include<string.h>
 #include<conio.h>
 #include"CustomException.h"
+#include"HashTableOfMainNodes.h"
 #pragma warning (disable:4996)
 using namespace std;
+HashTableOfMainNodes hashTableOfMainNodes;
 void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree);
 void AddBranchPizzeria(string name, string mainBranchName, Point p, TwoDTree& currTree);
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree);
@@ -181,7 +183,7 @@ void AddBranchPizzeria(string name,string mainBranchName, Point p, TwoDTree& cur
 //***************************************************************************
 void deleteBranchPizzeria(Point p, TwoDTree& currTree) {
 	BasicNode* findNode = currTree.searchWithCoordinates(p.getX(), p.getY());
-	if (findNode == nullptr) throw CustomException("There is another pizzeria in this area!");
+	if (findNode == nullptr) throw CustomException("There isn't any pizzeria in this area!");
 	if (typeid(*findNode) == typeid(Node_MainPizza))throw CustomException("The coordinates given belong to a main pizzeria branch, you cannot delete it");
 	currTree.deleteNode(p);
 	// update vector

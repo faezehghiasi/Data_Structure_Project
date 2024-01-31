@@ -1,5 +1,6 @@
 #pragma once
 #include"BasicNode.h"
+
 class HashTableOfMainNodes
 {
 private:
@@ -11,11 +12,16 @@ private:
 	bool isPrime(int num);
 	int nextPrime(int m);
 public:
+	HashTableOfMainNodes() {
+		sizeOfTable = 113;
+		hashtable = new BasicNode * *[sizeOfTable];
+	}
 	int search(string key);
 	void deleteWithKey(string key);
 	HashTableOfMainNodes():sizeOfTable(113){
 		hashtable = new BasicNode**[sizeOfTable];
 	}
+	void clear();
 	void insert(BasicNode**);
 	void resize();
 };

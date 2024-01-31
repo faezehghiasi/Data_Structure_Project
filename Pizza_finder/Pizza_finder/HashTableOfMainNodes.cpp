@@ -115,3 +115,9 @@ void HashTableOfMainNodes::resize() {
     
 
 }
+//*****************************************************************
+void HashTableOfMainNodes::clear()
+{
+    delete[] this->hashtable;
+    hashtable = new BasicNode * *[sizeOfTable];
+}
