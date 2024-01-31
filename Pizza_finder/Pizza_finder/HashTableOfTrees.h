@@ -10,5 +10,6 @@ public:
 	void insert(UndoList newList);
 	//TwoDTree getTreeWithKey(int key);
 	friend class UndoList;
+	void display(int index);
 };
 

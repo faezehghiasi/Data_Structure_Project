@@ -12,22 +12,24 @@
 #include<stdlib.h>
 #include<regex>
 #include<string.h>
+#include<conio.h>
+#pragma warning (disable:4996)
 using namespace std;
 void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree);
 void AddBranchPizzeria(string name, string mainBranchName, Point p, TwoDTree& currTree);
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree);
 //*****************************************************************************
 int main(void) {
+	int i = 0;
 	HashTableOfTrees hashTableOfTrees;
 	string order;
 	string currentOrder;
-	int countOfOrder = 0;
 	vector<Neighbourhood> Neighbourhoods;
 	TwoDTree currentTree;
 	//*************************************************************************
 	while (true) {
 		UndoList listOftrees;
-		system("cls");
+		///system("cls");
 		cout << "Enter the command you want : (Enter Exit for end and Help to see order's form) : ";
 		getline(cin, order);
 		//******************************************************
@@ -56,13 +58,19 @@ int main(void) {
 				cin.get();
 				break;
 			}
-			countOfOrder++;
 			UndoNode* newTree = new UndoNode(currentTree);
 			listOftrees.pushBack(newTree);
 			if(it!=-1)order = order.substr(it + 3);
 		} while (it != -1);
 		hashTableOfTrees.insert(listOftrees);
+		for (int t = 0; t <= i; t++) {
+			hashTableOfTrees.display(t);
+			cout << "-----------------------------------------------------\n";
+		}
+		i++;
+		cin.get();
 	}
+
 }
 /*******************validation******************/
 void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree) {
@@ -127,6 +135,8 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		string x = order.substr(order.find("(") + 1, (order.find(",") - order.find("(") - 1));
 		string y = order.substr(order.find(",") + 1, (order.find(")") - order.find(",") - 1));
 		currTree.rangeSearch(stod(x), stod(y), stod(radius));
+
+		getch();
 	}
 	else if (order.find("Del-Br") != -1) {
 		regex check("Del-Br \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");
