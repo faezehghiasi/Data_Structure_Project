@@ -76,23 +76,12 @@ void HashTableOfMainNodes::insert(BasicNode** newNode) {
             this->hashtable[index] = newNode;
             return;
         }
-
-
-
-
-
         if ((*hashtable[index])->getIsDeleted() == true)
         {
             BasicNode* temp = *hashtable[index];
             hashtable[index] = newNode;
             delete temp;
         }
-
-
-
-
-
-
         else i++;
     }
     this->resize();

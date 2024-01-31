@@ -41,6 +41,8 @@ BasicNode* TwoDTree::buildTree(bool divX, vector<BasicNode*>nodes) {
     BasicNode* newNode;
     if (typeid(*sortedNodes[mid]) == typeid(Node_MainPizza)) {
         newNode = new Node_MainPizza(sortedNodes[mid]->coordinates.x, sortedNodes[mid]->coordinates.y, sortedNodes[mid]->name);
+        
+        
     }
     else {
         Node_SubPizza* temp = dynamic_cast<Node_SubPizza*>(sortedNodes[mid]);
@@ -54,7 +56,6 @@ BasicNode* TwoDTree::buildTree(bool divX, vector<BasicNode*>nodes) {
 }
 //****************************************************************************
 void TwoDTree::deleteNode(Point removeCoor) {
-//$$$$$$$$$$$$$$$$$$$$$$$ exception handeling $$$$$$$$$$$$$$$$$$$$$$$$
     auto locOfRmvNode = find_if(this->nodes.begin(), this->nodes.end(), [&](auto a) { return removeCoor == a->coordinates; });
     this->nodes.erase(locOfRmvNode);
     this->clearTree(this->root);
@@ -67,11 +68,6 @@ void TwoDTree:: rangeSearch(double x, double y, double dist) {
     static bool res = false;
     rangeSearch(true, root, x, y, radius,res);
     if (!res) throw CustomException("There is no pizzeria in the desired radius around this point!");
-
-
-
-
-    /////////////////////// class exeption/////////////////////////////////////
 }
 //******************************************************************************
 void TwoDTree::rangeSearch(bool divX, BasicNode* node, double x, double y, double radius,bool& res) {
