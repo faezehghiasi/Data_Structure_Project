@@ -21,7 +21,6 @@ int main(void) {
 	HashTableOfTrees hashTableOfTrees;
 	string order;
 	string currentOrder;
-	int countOfOrder = 0;
 	vector<Neighbourhood> Neighbourhoods;
 	TwoDTree currentTree;
 	//*************************************************************************
@@ -56,7 +55,6 @@ int main(void) {
 				cin.get();
 				break;
 			}
-			countOfOrder++;
 			UndoNode* newTree = new UndoNode(currentTree);
 			listOftrees.pushBack(newTree);
 			if(it!=-1)order = order.substr(it + 3);

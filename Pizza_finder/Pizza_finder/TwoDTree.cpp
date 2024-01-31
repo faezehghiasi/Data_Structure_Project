@@ -78,6 +78,7 @@ void TwoDTree::rangeSearch(bool divX, BasicNode* node, double x, double y, doubl
 //***********************************************************************************
 bool TwoDTree:: shoulReplace(Point queryNode, Point currentNode, Point otherNode)
 {
+
     if (queryNode.distanceSquared(currentNode) < queryNode.distanceSquared(otherNode))return false;
     return true;
 
@@ -85,6 +86,8 @@ bool TwoDTree:: shoulReplace(Point queryNode, Point currentNode, Point otherNode
 //***************************************************************************
 BasicNode* TwoDTree::findNearestNeighbourhood(Point queryPoint, bool dimention, BasicNode* subroot)
 {
+    //$$$$$$$$$$$$$$$$$$$$$ if two point has same distance it returns one $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
     //exist query point in 2dtree
     if (subroot->coordinates == queryPoint)return subroot;
     //subroot be a leaf

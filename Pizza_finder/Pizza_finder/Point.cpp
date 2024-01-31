@@ -17,3 +17,5 @@ bool Point::operator==(Point p) {
 double Point::distanceSquared(Point other) {
 	return pow(x - other.x, 2) + pow(y - other.y, 2);
 }
+double Point::getX() { return x; }
+double Point::getY() { return y; }

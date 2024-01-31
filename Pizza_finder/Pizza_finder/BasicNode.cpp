@@ -10,3 +10,4 @@ BasicNode& BasicNode:: operator= (BasicNode node) {
 	right = node.right;
 	return *this;
 }
+Point BasicNode::getCoordinates() { return coordinates; }

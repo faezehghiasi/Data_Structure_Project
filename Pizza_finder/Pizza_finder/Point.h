@@ -13,4 +13,6 @@ public:
 	void set_y(double yVal);
 	double distanceSquared(Point);
 	bool operator==(Point);
+	double getX();
+	double getY();
 };

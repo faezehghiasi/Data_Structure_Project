@@ -14,5 +14,6 @@ public:
 	virtual void print(){};
 	friend class TwoDTree;
 	bool operator ==(BasicNode);
+	Point getCoordinates();
 	virtual BasicNode& operator= (BasicNode);
 };
