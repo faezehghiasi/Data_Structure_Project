@@ -99,12 +99,12 @@ BasicNode* TwoDTree::findNearestNeighbourhood(const Point& queryPoint, bool dime
         }
     }
 
-    if (/*should replace*/)nearestNode = subroot;
+    //if (/*should replace*/)nearestNode = subroot;
 
-    double radius =/*calculate*/;
-    double shortDist;//The shortest distance between two points
-    if (dimention)shortDist = pow(queryPoint.x - subroot->coordinates.x,2);
-    else shortDist = pow(queryPoint.y - subroot->coordinates.y, 2);
+    //double radius =/*calculate*/;
+    //double shortDist;//The shortest distance between two points
+    //if (dimention)shortDist = pow(queryPoint.x - subroot->coordinates.x,2);
+    //else shortDist = pow(queryPoint.y - subroot->coordinates.y, 2);
 
 
 
