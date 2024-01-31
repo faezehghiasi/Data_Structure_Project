@@ -10,6 +10,7 @@ private:
 	unsigned int finalHash(const string& key, int i);
 public:
 	HashTableOfMainNodes():sizeOfTable(113){}
-
+	int search(string key);
+	void deleteWithKey(string key);
 };
 

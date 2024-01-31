@@ -1,4 +1,5 @@
 #include "HashTableOfMainNodes.h"
+#include"CustomException.h"
 unsigned int HashTableOfMainNodes::hash1(const string& str) {
     const unsigned int fnv_prime = 0x01000193;
     unsigned int hash_value = 0x811c9dc5;
@@ -24,4 +25,22 @@ unsigned int HashTableOfMainNodes::finalHash(const string& key, int i) {
     return index;
 }
 //******************************************************************
-
+int HashTableOfMainNodes::search(string key) {
+    int i = 0;
+    unsigned int index = 0;
+    do {
+        index = finalHash(key, i);
+        if ((*hashtable[index])->name == key) return index;
+        i++;
+    } while ((*hashtable[index] != nullptr || (*hashtable[index])->isDeleted) && index < sizeOfTable);
+    return -1;
+}
+//***************************************************************************
+void HashTableOfMainNodes::deleteWithKey(string key) {
+    int index = search(key);
+    if (index != -1) {
+        *hashtable[index] = nullptr;
+    }
+    else throw CustomException("There is no pizzeria with this name in hash table");
+}
+//*****************************************************************************
