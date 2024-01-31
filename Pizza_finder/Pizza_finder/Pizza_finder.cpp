@@ -144,6 +144,7 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		string x = order.substr(8, order.find(",")-order.find("(")-1);
 		string y = order.substr(order.find(",")+1, order.find(")") -order.find(",")-1);
 		Point remvNode(stod(x), stod(y));
+		currTree.deleteNode(remvNode);
 	}
 	else if (order.find("Near-P") != -1) {
 		regex check("Near-P \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");
