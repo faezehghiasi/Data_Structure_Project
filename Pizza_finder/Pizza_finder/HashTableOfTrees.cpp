@@ -10,3 +10,4 @@ void HashTableOfTrees::insert(UndoList newList) {
 void HashTableOfTrees::display(int index) {
 	this->hashTable[index].root->data.display(this->hashTable[index].root->data.root);
 }
+//*******************************************************

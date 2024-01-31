@@ -1,5 +1,6 @@
 #include "TwoDTree.h"
 #include<algorithm>
+#include"CustomException.h"
 using namespace std;
 void TwoDTree::addMainBranch(Node_MainPizza* newPizzaStore) {
     nodes.push_back(newPizzaStore);
@@ -60,7 +61,8 @@ void TwoDTree:: rangeSearch(double x, double y, double dist) {
     double radius = dist * dist;
     static bool res = false;
     rangeSearch(true, root, x, y, radius,res);
-    if (!res) cout << "There is no pizzeria in the desired radius around this point..." << endl;
+    if (!res) throw CustomException("There is no pizzeria in the desired radius around this point!");
+
 
 
 
@@ -173,6 +175,35 @@ void TwoDTree::display(BasicNode* node) {
         display(node->left);
         display(node->right);
         cout << "X : " << node->coordinates.x << "  Y : " << node->coordinates.y << endl;
+    }
+}
+//*************************************************************************
+BasicNode* TwoDTree::searchWithCoordinates(double x, double y) {
+    return searchWithCoordinates(true,root, x, y);
+}
+//*************************************************************************
+BasicNode* TwoDTree::searchWithCoordinates(bool divX, BasicNode* node, double x, double y) {
+    if (node == nullptr) {
+        return nullptr;
+    }
+    if (node->coordinates.x == x && node->coordinates.y == y) {
+        return node;
+    }
+    if (divX) {
+        if (node->coordinates.x > x) {
+            return searchWithCoordinates(!divX, node->left, x, y);
+        }
+        else {
+            return searchWithCoordinates(!divX, node->right, x, y);
+        }
+    }
+    else {
+        if (node->coordinates.y > y) {
+            return searchWithCoordinates(!divX, node->left, x, y);
+        }
+        else {
+            return searchWithCoordinates(!divX, node->right, x, y);
+        }
     }
 }
 

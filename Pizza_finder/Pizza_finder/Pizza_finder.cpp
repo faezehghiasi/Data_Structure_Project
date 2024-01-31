@@ -13,11 +13,13 @@
 #include<regex>
 #include<string.h>
 #include<conio.h>
+#include"CustomException.h"
 #pragma warning (disable:4996)
 using namespace std;
 void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree);
 void AddBranchPizzeria(string name, string mainBranchName, Point p, TwoDTree& currTree);
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree);
+void deleteBranchPizzeria(Point p, TwoDTree& currTree);
 //*****************************************************************************
 int main(void) {
 	int i = 0;
@@ -57,6 +59,9 @@ int main(void) {
 				cout << "Press enter to continue...";
 				cin.get();
 				break;
+			}
+			catch (const exception& e) {
+				cerr << e.what() << endl;
 			}
 			UndoNode* newTree = new UndoNode(currentTree);
 			listOftrees.pushBack(newTree);
@@ -144,6 +149,7 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		string x = order.substr(8, order.find(",")-order.find("(")-1);
 		string y = order.substr(order.find(",")+1, order.find(")") -order.find(",")-1);
 		Point remvNode(stod(x), stod(y));
+		deleteBranchPizzeria(remvNode, currTree);
 	}
 	else if (order.find("Near-P") != -1) {
 		regex check("Near-P \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");
@@ -156,17 +162,28 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 }
 //***************************************************************************
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree) {
+	if (currTree.searchWithCoordinates(p.getX(), p.getY()) != nullptr) throw CustomException("There is another pizzeria in this area!");
 	Node_MainPizza* newPizzeria = new Node_MainPizza(p, name);
 	currTree.addMainBranch(newPizzeria);
 	// update hash function;
-	//error 
+	//error  for name
 }
 //***************************************************************************
 void AddBranchPizzeria(string name,string mainBranchName, Point p, TwoDTree& currTree) {
+	if (currTree.searchWithCoordinates(p.getX(), p.getY()) != nullptr) throw CustomException("There is another pizzeria in this area!");
 	Node_SubPizza* newPizzeria = new Node_SubPizza(p, name,mainBranchName);
 	currTree.addSubBranch(newPizzeria);
 	// update hash function;
 	// update tree
 	// update vector
-    // error
+    // error for name
+}
+//***************************************************************************
+void deleteBranchPizzeria(Point p, TwoDTree& currTree) {
+	BasicNode* findNode = currTree.searchWithCoordinates(p.getX(), p.getY());
+	if (findNode == nullptr) throw CustomException("There is another pizzeria in this area!");
+	if (typeid(*findNode) == typeid(Node_MainPizza))throw CustomException("The coordinates given belong to a main pizzeria branch, you cannot delete it");
+	currTree.deleteNode(p);
+	// update vector
+    // error for name
 }
