@@ -100,12 +100,18 @@ void HashTableOfMainNodes::insert(BasicNode** newNode) {
 }
 //*****************************************************************
 void HashTableOfMainNodes::resize() {
-    BasicNode*** temp = new BasicNode * *[sizeOfTable * 2];
+    BasicNode*** temp = new BasicNode * *[sizeOfTable];
+    int tempsize = sizeOfTable;
     for (int i = 0; i < sizeOfTable; i++) {
         temp[i] = this->hashtable[i];
     }
     delete[] hashtable;
-    hashtable = temp;
     sizeOfTable = this->nextPrime(sizeOfTable * 2);
+    hashtable =new BasicNode**[sizeOfTable];
+    for (int i = 0; i < tempsize; i++)
+    {
+        this->insert(temp[i]);
+    }
+    
 
 }
