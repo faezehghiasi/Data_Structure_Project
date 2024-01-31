@@ -14,12 +14,14 @@
 #include<string.h>
 #include<conio.h>
 #include"CustomException.h"
+#include"HashTableOfMainNodes.h"
 #pragma warning (disable:4996)
 using namespace std;
 void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree);
 void AddBranchPizzeria(string name, string mainBranchName, Point p, TwoDTree& currTree);
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree);
 void deleteBranchPizzeria(Point p, TwoDTree& currTree);
+HashTableOfMainNodes hashTableOfMainNodes;
 //*****************************************************************************
 int main(void) {
 	int i = 0;
