@@ -11,8 +11,9 @@ private:
 	unsigned int finalHash(const string& key, int i);
 	bool isPrime(int num);
 	int nextPrime(int m);
-public:
 	vector<BasicNode*>hashTable;
+public:
+	friend class TwoDTree;
 	int search(string key);
 	HashTableOfMainNodes():sizeOfTable(113){
 		hashTable.resize(sizeOfTable);

@@ -14,6 +14,9 @@ private:
 	BasicNode* buildTree(bool, vector<BasicNode*>,bool isUndoNode);
 	void rangeSearch(bool divX, BasicNode* node, double x, double y, double radius, bool& res);
 	BasicNode* searchWithCoordinates(bool divX, BasicNode* node, double x, double y);
+	void merge(vector<pair<string, int>>& inputArray, vector<pair<string, int>> tempArray, int low, int mid, int hi);
+	void Sort(vector<pair<string, int>>& inputArray, vector<pair<string, int>> tempArray, int low, int hi);
+	vector<pair<string, int>> branchesNumbers();
 public:
 	TwoDTree() :root(nullptr) {}
 	void addMainBranch(Node_MainPizza*);
@@ -32,5 +35,7 @@ public:
 	BasicNode* findNearestSubBranch(Point queryPoint, string mainBranchName);
 	void listOfPizzeriasInTheNeighborhood(bool divX, BasicNode* node, vector<BasicNode*>& list, Neighbourhood nb);
 	void listOfPizzeriasInTheNeighborhood(vector<BasicNode*>& list, Neighbourhood nb);
+	void mostBranches();
+	void prinSubBranchesTemp(string mainName);
 };
 

@@ -176,8 +176,7 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		regex check("List-Br \\[([a-zA-Z_][a-zA-Z0-9_]*)\\]");
 		if (!regex_match(order, check))throw 0;
 		string name = order.substr(order.find("[") + 1, order.find("]") - order.find("[")-1);
-		int index = hashTableOfMainNodes.search(name);
-		dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->printSubBranches();
+		currTree.prinSubBranchesTemp(name);
 	}
 	else if (order.find("List-P") != -1) {
 		regex check("List-P \\[([a-zA-Z_][a-zA-Z0-9_]*)\\]");
@@ -188,6 +187,13 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		auto it = find_if(neibhd.begin(), neibhd.end(), [&](auto p) {
 			return p.getName() == name; });
 		displayListOfPizzeriaInTheNeighbourhood(list, currTree, *it);
+	}
+	else if (order.find("Most-Brs") != -1)
+	{
+		regex check("Most-Brs");
+		if (!regex_match(order, check))throw 0;
+		currTree.mostBranches();
+
 	}
 }
 //***************************************************************************
@@ -201,7 +207,7 @@ void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree) {
 //***************************************************************************
 void AddBranchPizzeria(string name,string mainBranchName, Point p, TwoDTree& currTree) {
 	if (currTree.searchWithCoordinates(p.getX(), p.getY()) != nullptr) throw CustomException("There is another pizzeria in this area!");
-	if(hashTableOfMainNodes.search(mainBranchName)!=-1) throw CustomException("There is no main branch pizzeria with this name!");
+	if(hashTableOfMainNodes.search(mainBranchName)==-1) throw CustomException("There is no main branch pizzeria with this name!");
 	Node_SubPizza* newPizzeria = new Node_SubPizza(p, name,mainBranchName);
 	currTree.addSubBranch(newPizzeria);
 	currTree.updateSubBranchInVectorAndHash(mainBranchName, newPizzeria);
