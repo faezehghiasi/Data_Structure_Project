@@ -41,6 +41,7 @@ BasicNode* TwoDTree::buildTree(bool divX, vector<BasicNode*>nodes,bool isUndoNod
     BasicNode* newNode;
     if (typeid(*sortedNodes[mid]) == typeid(Node_MainPizza)) {
         newNode = new Node_MainPizza(sortedNodes[mid]->coordinates.x, sortedNodes[mid]->coordinates.y, sortedNodes[mid]->name);
+
         if (!isUndoNode) {
             hashTableOfMainNodes.insert(newNode);
         }
@@ -209,11 +210,13 @@ BasicNode* TwoDTree::searchWithCoordinates(bool divX, BasicNode* node, double x,
     }
 }
 //*************************************************************************
-void TwoDTree::updateSubBranchInVector(string mainBranchName,BasicNode* subNode) {
+void TwoDTree::updateSubBranchInVectorAndHash(string mainBranchName,BasicNode* subNode) {
    
     auto it = find_if(nodes.begin(), nodes.end(), [&](auto p) {
         return p->name == mainBranchName; });
     if (it != nodes.end()) {
         dynamic_cast<Node_MainPizza*>(*it)->branches.push_back(*(dynamic_cast<Node_SubPizza*>(subNode)));
     }
+    int index = hashTableOfMainNodes.search(mainBranchName);
+    dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->branches.push_back(*(dynamic_cast<Node_SubPizza*>(subNode)));
 }

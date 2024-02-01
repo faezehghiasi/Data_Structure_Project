@@ -18,5 +18,6 @@ public:
 	void insert(BasicNode*);
 	void resizeHashTable();
 	void clearHashTable();
+
 };
 

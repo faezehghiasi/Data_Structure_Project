@@ -25,7 +25,7 @@ public:
 	void rangeSearch(double x, double y, double radius);
 	BasicNode* getRoot();
 	BasicNode* searchWithCoordinates(double x, double y);
-	void updateSubBranchInVector(string mainBranchName,BasicNode* subNode);
+	void updateSubBranchInVectorAndHash(string mainBranchName,BasicNode* subNode);
 	void display(BasicNode* node);
 	friend class HashTableOfTrees;
 };

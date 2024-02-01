@@ -8,3 +8,4 @@ void Node_MainPizza::printSubBranches() {
 		cout << branches[i].getName() << " " << "location : " << "( " << branches[i].getCoordinates().getX() << ", " << branches[i].getCoordinates().getY()<< " )" << endl;
 	}
 }
+

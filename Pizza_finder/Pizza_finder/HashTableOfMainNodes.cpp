@@ -58,6 +58,7 @@ int HashTableOfMainNodes::search(string key) {
     } while (hashTable[index] != nullptr  && index < sizeOfTable);
     return -1;
 }
+
 //*****************************************************************************
 void HashTableOfMainNodes::insert(BasicNode* newNode) {
     int i = 0;

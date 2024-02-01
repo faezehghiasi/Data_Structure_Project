@@ -75,6 +75,7 @@ int main(void) {
 	//		cout << "-----------------------------------------------------\n";
 	//	}
 	//	i++;*/
+
 		cin.get();
 	}
 
@@ -127,8 +128,7 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 	else if (order.find("Add-Br") != -1) {
 		regex pattern("Add-Br\\s+\\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");// adad ashari ro nemigire
 		if (!regex_match(order, pattern))throw 0;
-		string name = order.substr((order.find("[") + 1), (order.find("]") - order.find("[") - 1));                     /// regix add nemigire
-		order = order.substr(order.find("]") + 1);
+		string name = order.substr((order.find("[") + 1), (order.find("]") - order.find("[") - 1));                    
 		string mainBranchName = order.substr((order.find("[") + 1), (order.find("]") - order.find("[") - 1));
 		string x = order.substr(order.find("(") + 1, (order.find(",") - order.find("(") - 1));
 		string y = order.substr(order.find(",") + 1, (order.find(")") - order.find(",") - 1));
@@ -182,12 +182,11 @@ void AddBranchPizzeria(string name,string mainBranchName, Point p, TwoDTree& cur
 	if (currTree.searchWithCoordinates(p.getX(), p.getY()) != nullptr) throw CustomException("There is another pizzeria in this area!");
 	Node_SubPizza* newPizzeria = new Node_SubPizza(p, name,mainBranchName);
 	currTree.addSubBranch(newPizzeria);
-	int index = hashTableOfMainNodes.search(mainBranchName);
-	dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->branches.push_back(*newPizzeria);
-	currTree.updateSubBranchInVector(mainBranchName, newPizzeria);
+	currTree.updateSubBranchInVectorAndHash(mainBranchName, newPizzeria);
     // error for name
 	//Node_MainPizza* temp = dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index]);
 	//dynamic_cast<Node_MainPizza*>(currTree.searchWithCoordinates(4, 4))->printSubBranches();
+
 }
 //***************************************************************************
 void deleteBranchPizzeria(Point p, TwoDTree& currTree) {
