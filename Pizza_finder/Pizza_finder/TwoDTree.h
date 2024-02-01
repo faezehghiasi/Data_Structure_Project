@@ -28,5 +28,6 @@ public:
 	void updateSubBranchInVectorAndHash(string mainBranchName,BasicNode* subNode);
 	void display(BasicNode* node);
 	friend class HashTableOfTrees;
+	BasicNode* findNearestSubBranch(Point queryPoint, string mainBranchName);
 };
 

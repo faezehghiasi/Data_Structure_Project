@@ -43,7 +43,7 @@ BasicNode* TwoDTree::buildTree(bool divX, vector<BasicNode*>nodes,bool isUndoNod
         newNode = new Node_MainPizza(sortedNodes[mid]->coordinates.x, sortedNodes[mid]->coordinates.y, sortedNodes[mid]->name);
 
         if (!isUndoNode) {
-            hashTableOfMainNodes.insert(newNode);
+            hashTableOfMainNodes.insert(&newNode);
         }
     }
     else {
@@ -218,5 +218,15 @@ void TwoDTree::updateSubBranchInVectorAndHash(string mainBranchName,BasicNode* s
         dynamic_cast<Node_MainPizza*>(*it)->branches.push_back(*(dynamic_cast<Node_SubPizza*>(subNode)));
     }
     int index = hashTableOfMainNodes.search(mainBranchName);
-    dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->branches.push_back(*(dynamic_cast<Node_SubPizza*>(subNode)));
+    dynamic_cast<Node_MainPizza*>(*(hashTableOfMainNodes.hashTable[index]))->branches.push_back(*(dynamic_cast<Node_SubPizza*>(subNode)));
+}
+//**************************************************************************
+BasicNode* TwoDTree::findNearestSubBranch(Point queryPoint, string mainBranchName) {
+   int index= hashTableOfMainNodes.search(mainBranchName);
+   TwoDTree tempTree;
+   int countOfSubBranchs = dynamic_cast<Node_MainPizza*>(*(hashTableOfMainNodes.hashTable[index]))->branches.size();
+   for (int i = 0; i < countOfSubBranchs; i++)tempTree.nodes.push_back(&dynamic_cast<Node_MainPizza*>(*(hashTableOfMainNodes.hashTable[index]))->branches[i]);
+   tempTree.root = buildTree(true, tempTree.nodes, false);
+   return findNearestNeighbourhood(queryPoint, true, tempTree.root);
+
 }

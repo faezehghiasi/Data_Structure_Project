@@ -35,39 +35,40 @@ int HashTableOfMainNodes:: nextPrime(int m) {
     }
 }
 //******************************************************************
-unsigned int HashTableOfMainNodes:: hash2(const string& str) {
-    unsigned long hash = 5381;
-    for (char ch : str) {
-        hash = ((hash << 5) + hash) + ch; // hash * 33 + ch
-    }
-    return hash % sizeOfTable;
-}
+//unsigned int HashTableOfMainNodes:: hash2(const string& str) {
+//    unsigned long hash = 5381;
+//    for (char ch : str) {
+//        hash = ((hash << 5) + hash) + ch; // hash * 33 + ch
+//    }
+//    return hash % sizeOfTable;
+//}
 //******************************************************************
 unsigned int HashTableOfMainNodes::finalHash(const string& key, int i) {
-    int index = (hash1(key) + i * hash2(key)) % sizeOfTable;
+    int index = (hash1(key) + i) % sizeOfTable;
     return index;
 }
 //******************************************************************
 int HashTableOfMainNodes::search(string key) {
     int i = 0;
     unsigned int index = 0;
-    do {
+    while (*hashTable[index] != nullptr or index < sizeOfTable){
         index = finalHash(key, i);
-        if (hashTable[index]->getName() == key) return index;
+        if (*hashTable[index] == NULL)return -1;
+        if ((*hashTable[index])->getName() == key) return index;
         i++;
-    } while (hashTable[index] != nullptr  && index < sizeOfTable);
+    }
     return -1;
 }
 
 //*****************************************************************************
-void HashTableOfMainNodes::insert(BasicNode* newNode) {
+void HashTableOfMainNodes::insert(BasicNode** newNode) {
     int i = 0;
     while (i != sizeOfTable) 
     {
-        int index = finalHash(newNode->getName(), i);
-        if (this->hashTable[index] == NULL)
+        int index = finalHash((*newNode)->getName(), i);
+        if (*hashTable[index] == NULL)
         {
-            this->hashTable[index] = newNode;
+            hashTable[index] = newNode;
             return;
         }
         else i++;
@@ -78,7 +79,8 @@ void HashTableOfMainNodes::insert(BasicNode* newNode) {
 //*****************************************************************
 void HashTableOfMainNodes::resizeHashTable() {
     int tempsize = sizeOfTable;
-    vector<BasicNode*>temp(hashTable);
+    vector<BasicNode**>temp(tempsize);
+    for (int i = 0; i < tempsize; i++)temp[i] = hashTable[i];
     hashTable.clear();
     sizeOfTable = this->nextPrime(sizeOfTable * 2);
     hashTable.resize(sizeOfTable);
@@ -90,5 +92,9 @@ void HashTableOfMainNodes::resizeHashTable() {
 //*****************************************************************
 void HashTableOfMainNodes::clearHashTable() {
     hashTable.clear();
-    hashTable.resize(2);
+    hashTable.resize(sizeOfTable);
+    for (int i = 0; i < sizeOfTable; i++) {
+        (hashTable[i]) = new BasicNode*;
+        *hashTable[i] = nullptr;
+    }
 }

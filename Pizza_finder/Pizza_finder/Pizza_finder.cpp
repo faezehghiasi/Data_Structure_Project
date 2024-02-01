@@ -126,9 +126,10 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		AddMainBranchPizzeria(name, point, currTree);
 	}
 	else if (order.find("Add-Br") != -1) {
-		regex pattern("Add-Br\\s+\\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");// adad ashari ro nemigire
-		if (!regex_match(order, pattern))throw 0;
-		string name = order.substr((order.find("[") + 1), (order.find("]") - order.find("[") - 1));                    
+		//regex pattern("Add-Br\\s+\\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");// adad ashari ro nemigire
+		//if (!regex_match(order, pattern))throw 0;
+		string name = order.substr((order.find("[") + 1), (order.find("]") - order.find("[") - 1)); 
+		order = order.substr(order.find("]")+1);
 		string mainBranchName = order.substr((order.find("[") + 1), (order.find("]") - order.find("[") - 1));
 		string x = order.substr(order.find("(") + 1, (order.find(",") - order.find("(") - 1));
 		string y = order.substr(order.find(",") + 1, (order.find(")") - order.find(",") - 1));
@@ -166,7 +167,22 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		if (!regex_match(order, check))throw 0;
 		string name = order.substr(order.find("[") + 1, order.find("]") - order.find("[")-1);
 		int index = hashTableOfMainNodes.search(name);
-		dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->printSubBranches();
+		dynamic_cast<Node_MainPizza*>(*(hashTableOfMainNodes.hashTable[index]))->printSubBranches();
+	}
+	else if (order.find("Near-Br") != -1)
+	{
+		regex check("Near-Br \\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");
+		if (!regex_match(order, check))throw 0;
+		string mainBranchName = order.substr(order.find("[") + 1, order.find("]") - order.find("[") - 1);
+		string x = order.substr(order.find("(") + 1, (order.find(",") - order.find("(") - 1));
+		string y = order.substr(order.find(",") + 1, (order.find(")") - order.find(",") - 1));
+		Point query(stod(x), stod(y));
+		auto near=currTree.findNearestSubBranch(query, mainBranchName);
+
+
+		//trying
+		if (near != NULL)cout << "x: " << near->getCoordinates().getX() << "\tY:" << near->getCoordinates().getY() << endl;
+
 	}
 }
 //***************************************************************************
