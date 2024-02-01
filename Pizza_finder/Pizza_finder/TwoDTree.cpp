@@ -40,7 +40,8 @@ BasicNode* TwoDTree::buildTree(bool divX, vector<BasicNode*>nodes,bool isUndoNod
     int mid = sortedNodes.size() /2;
     BasicNode* newNode;
     if (typeid(*sortedNodes[mid]) == typeid(Node_MainPizza)) {
-        newNode = new Node_MainPizza(sortedNodes[mid]->coordinates.x, sortedNodes[mid]->coordinates.y, sortedNodes[mid]->name);
+        Node_MainPizza* temp = dynamic_cast<Node_MainPizza*>(sortedNodes[mid]);
+        newNode = new Node_MainPizza(temp->coordinates.x, temp->coordinates.y, temp->name,temp->branches);
 
         if (!isUndoNode) {
             hashTableOfMainNodes.insert(newNode);
