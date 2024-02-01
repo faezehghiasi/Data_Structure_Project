@@ -7,15 +7,15 @@ extern HashTableOfMainNodes hashTableOfMainNodes;
 void TwoDTree::addMainBranch(Node_MainPizza* newPizzaStore) {
     nodes.push_back(newPizzaStore);
     clearTree(root);
-    hashTableOfMainNodes.clear();
-    root = buildTree(true, nodes);
+    hashTableOfMainNodes.clearHashTable();
+    root = buildTree(true, nodes,false);
 }
 //****************************************************************************
 void TwoDTree::addSubBranch(Node_SubPizza* newPizzaStore) {
     nodes.push_back(newPizzaStore);
     clearTree(root);
-    hashTableOfMainNodes.clear();
-    root = buildTree(true, nodes);
+    hashTableOfMainNodes.clearHashTable();
+    root = buildTree(true, nodes,false);
 }
 //****************************************************************************
 void TwoDTree::clearTree(BasicNode* node) {
@@ -26,7 +26,7 @@ void TwoDTree::clearTree(BasicNode* node) {
     }
 }
 //****************************************************************************
-BasicNode* TwoDTree::buildTree(bool divX, vector<BasicNode*>nodes) {
+BasicNode* TwoDTree::buildTree(bool divX, vector<BasicNode*>nodes,bool isUndoNode) {
     if (nodes.empty()) {
         return nullptr;
     }
@@ -41,16 +41,17 @@ BasicNode* TwoDTree::buildTree(bool divX, vector<BasicNode*>nodes) {
     BasicNode* newNode;
     if (typeid(*sortedNodes[mid]) == typeid(Node_MainPizza)) {
         newNode = new Node_MainPizza(sortedNodes[mid]->coordinates.x, sortedNodes[mid]->coordinates.y, sortedNodes[mid]->name);
-        
-        
+        if (!isUndoNode) {
+            hashTableOfMainNodes.insert(newNode);
+        }
     }
     else {
         Node_SubPizza* temp = dynamic_cast<Node_SubPizza*>(sortedNodes[mid]);
         newNode = new Node_SubPizza(temp->coordinates.x,temp->coordinates.y,temp->name,temp->mainBranchName);
     }
-    newNode->left = buildTree(!divX, vector<BasicNode*>(sortedNodes.begin(), sortedNodes.begin() + mid));
+    newNode->left = buildTree(!divX, vector<BasicNode*>(sortedNodes.begin(), sortedNodes.begin() + mid),isUndoNode);
     if (mid + 1 <= sortedNodes.size() - 1) {
-        newNode->right = buildTree(!divX,vector<BasicNode*>(sortedNodes.begin() + mid + 1, sortedNodes.end()));
+        newNode->right = buildTree(!divX,vector<BasicNode*>(sortedNodes.begin() + mid + 1, sortedNodes.end()),isUndoNode);
     }
     return  newNode;
 }
@@ -59,8 +60,8 @@ void TwoDTree::deleteNode(Point removeCoor) {
     auto locOfRmvNode = find_if(this->nodes.begin(), this->nodes.end(), [&](auto a) { return removeCoor == a->coordinates; });
     this->nodes.erase(locOfRmvNode);
     this->clearTree(this->root);
-    hashTableOfMainNodes.clear();
-    this->root=this->buildTree(true, this->nodes);
+    hashTableOfMainNodes.clearHashTable();
+    this->root=this->buildTree(true, this->nodes,false);
 }
 //****************************************************************************
 void TwoDTree:: rangeSearch(double x, double y, double dist) {
@@ -207,4 +208,12 @@ BasicNode* TwoDTree::searchWithCoordinates(bool divX, BasicNode* node, double x,
         }
     }
 }
-
+//*************************************************************************
+void TwoDTree::updateSubBranchInVector(string mainBranchName,BasicNode* subNode) {
+   
+    auto it = find_if(nodes.begin(), nodes.end(), [&](auto p) {
+        return p->name == mainBranchName; });
+    if (it != nodes.end()) {
+        dynamic_cast<Node_MainPizza*>(*it)->branches.push_back(*(dynamic_cast<Node_SubPizza*>(subNode)));
+    }
+}

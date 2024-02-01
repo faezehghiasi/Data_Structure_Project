@@ -10,7 +10,7 @@ private:
 	BasicNode* root;
 	vector<BasicNode*>nodes;
 	void clearTree(BasicNode*);
-	BasicNode* buildTree(bool, vector<BasicNode*>);
+	BasicNode* buildTree(bool, vector<BasicNode*>,bool isUndoNode);
 	void rangeSearch(bool divX, BasicNode* node, double x, double y, double radius, bool& res);
 	BasicNode* searchWithCoordinates(bool divX, BasicNode* node, double x, double y);
 public:
@@ -25,8 +25,7 @@ public:
 	void rangeSearch(double x, double y, double radius);
 	BasicNode* getRoot();
 	BasicNode* searchWithCoordinates(double x, double y);
-
-
+	void updateSubBranchInVector(string mainBranchName,BasicNode* subNode);
 	void display(BasicNode* node);
 	friend class HashTableOfTrees;
 };

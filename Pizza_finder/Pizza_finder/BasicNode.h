@@ -9,7 +9,6 @@ class BasicNode {
 	BasicNode* left;
 	BasicNode* right;
 	string  name;
-	bool isDeleted = false;
 public:
 	BasicNode(double xVal, double yVal, string nameVal) : coordinates(xVal, yVal), name(nameVal),left(nullptr),right(nullptr) {}
 	BasicNode(Point p, string nameVal) : coordinates(p), name(nameVal), left(nullptr), right(nullptr) {}
@@ -19,6 +18,4 @@ public:
 	Point getCoordinates();
 	virtual BasicNode& operator= (BasicNode);
 	string getName();
-	bool getIsDeleted();
-	void setIsDelete(bool deleteVal);
 };

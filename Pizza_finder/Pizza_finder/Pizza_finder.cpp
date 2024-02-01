@@ -70,11 +70,11 @@ int main(void) {
 			if(it!=-1)order = order.substr(it + 3);
 		} while (it != -1);
 		hashTableOfTrees.insert(listOftrees);
-		for (int t = 0; t <= i; t++) {
-			hashTableOfTrees.display(t);
-			cout << "-----------------------------------------------------\n";
-		}
-		i++;
+	///*	for (int t = 0; t <= i; t++) {
+	//		hashTableOfTrees.display(t);
+	//		cout << "-----------------------------------------------------\n";
+	//	}
+	//	i++;*/
 		cin.get();
 	}
 
@@ -125,9 +125,9 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		AddMainBranchPizzeria(name, point, currTree);
 	}
 	else if (order.find("Add-Br") != -1) {
-		regex pattern("^Add-Br\\s+\\[([a-zA-Z]+)\\]\\s+\\[([a-zA-Z]+)\\]\\s+\\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");// adad ashari ro nemigire
+		regex pattern("Add-Br\\s+\\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");// adad ashari ro nemigire
 		if (!regex_match(order, pattern))throw 0;
-		string name = order.substr((order.find("[") + 1), (order.find("]") - order.find("[") - 1));
+		string name = order.substr((order.find("[") + 1), (order.find("]") - order.find("[") - 1));                     /// regix add nemigire
 		order = order.substr(order.find("]") + 1);
 		string mainBranchName = order.substr((order.find("[") + 1), (order.find("]") - order.find("[") - 1));
 		string x = order.substr(order.find("(") + 1, (order.find(",") - order.find("(") - 1));
@@ -161,6 +161,13 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		Point queryPoint(stod(x), stod(y));
 		currTree.findNearestNeighbourhood(queryPoint, true, currTree.getRoot());
 	}
+	else if (order.find("List-Br") != -1) {
+		regex check("List-Br \\[([a-zA-Z_][a-zA-Z0-9_]*)\\]");
+		if (!regex_match(order, check))throw 0;
+		string name = order.substr(order.find("[") + 1, order.find("]") - order.find("[")-1);
+		int index = hashTableOfMainNodes.search(name);
+		dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->printSubBranches();
+	}
 }
 //***************************************************************************
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree) {
@@ -175,10 +182,12 @@ void AddBranchPizzeria(string name,string mainBranchName, Point p, TwoDTree& cur
 	if (currTree.searchWithCoordinates(p.getX(), p.getY()) != nullptr) throw CustomException("There is another pizzeria in this area!");
 	Node_SubPizza* newPizzeria = new Node_SubPizza(p, name,mainBranchName);
 	currTree.addSubBranch(newPizzeria);
-	// update hash function;
-	// update tree
-	// update vector
+	int index = hashTableOfMainNodes.search(mainBranchName);
+	dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->branches.push_back(*newPizzeria);
+	currTree.updateSubBranchInVector(mainBranchName, newPizzeria);
     // error for name
+	//Node_MainPizza* temp = dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index]);
+	//dynamic_cast<Node_MainPizza*>(currTree.searchWithCoordinates(4, 4))->printSubBranches();
 }
 //***************************************************************************
 void deleteBranchPizzeria(Point p, TwoDTree& currTree) {

@@ -1,10 +1,10 @@
 #pragma once
 #include"BasicNode.h"
-
+#include<vector>
 class HashTableOfMainNodes
 {
 private:
-	BasicNode*** hashtable;
+
 	unsigned int sizeOfTable;
 	unsigned int hash2(const string& str);
 	unsigned int hash1(const string& str);
@@ -12,13 +12,11 @@ private:
 	bool isPrime(int num);
 	int nextPrime(int m);
 public:
+	vector<BasicNode*>hashTable;
 	int search(string key);
-	void deleteWithKey(string key);
-	HashTableOfMainNodes():sizeOfTable(113){
-		hashtable = new BasicNode**[sizeOfTable];
-	}
-	void clear();
-	void insert(BasicNode**);
-	void resize();
+	HashTableOfMainNodes():sizeOfTable(2){}
+	void insert(BasicNode*);
+	void resizeHashTable();
+	void clearHashTable();
 };
 

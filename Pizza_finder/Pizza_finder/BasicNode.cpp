@@ -12,5 +12,3 @@ BasicNode& BasicNode:: operator= (BasicNode node) {
 }
 Point BasicNode::getCoordinates() { return coordinates; }
 string BasicNode::getName() { return name; }
-bool BasicNode::getIsDeleted() { return isDeleted; }
-void  BasicNode::setIsDelete(bool deleteVal) {isDeleted = deleteVal;}

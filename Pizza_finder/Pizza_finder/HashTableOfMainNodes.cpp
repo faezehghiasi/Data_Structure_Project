@@ -1,5 +1,6 @@
 #include "HashTableOfMainNodes.h"
 #include"CustomException.h"
+#include<array>
 unsigned int HashTableOfMainNodes::hash1(const string& str) {
     const unsigned int fnv_prime = 0x01000193;
     unsigned int hash_value = 0x811c9dc5;
@@ -52,61 +53,41 @@ int HashTableOfMainNodes::search(string key) {
     unsigned int index = 0;
     do {
         index = finalHash(key, i);
-        if ((*hashtable[index])->getName() == key) return index;
+        if (hashTable[index]->getName() == key) return index;
         i++;
-    } while ((*hashtable[index] != nullptr || (*hashtable[index])->getIsDeleted()) && index < sizeOfTable);
+    } while (hashTable[index] != nullptr  && index < sizeOfTable);
     return -1;
 }
-//***************************************************************************
-void HashTableOfMainNodes::deleteWithKey(string key) {
-    int index = search(key);
-    if (index != -1) {
-        (*hashtable[index])->setIsDelete(true);
-    }
-    else throw CustomException("There is no pizzeria with this name in hash table");
-}
 //*****************************************************************************
-void HashTableOfMainNodes::insert(BasicNode** newNode) {
+void HashTableOfMainNodes::insert(BasicNode* newNode) {
     int i = 0;
     while (i != sizeOfTable) 
     {
-        int index = finalHash((* newNode)->getName(), i);
-        if (this->hashtable[index] == NULL)
+        int index = finalHash(newNode->getName(), i);
+        if (this->hashTable[index] == NULL)
         {
-            this->hashtable[index] = newNode;
+            this->hashTable[index] = newNode;
             return;
-        }
-        if ((*hashtable[index])->getIsDeleted() == true)
-        {
-            BasicNode* temp = *hashtable[index];
-            hashtable[index] = newNode;
-            delete temp;
         }
         else i++;
     }
-    this->resize();
+    this->resizeHashTable();
     this->insert(newNode);
 }
 //*****************************************************************
-void HashTableOfMainNodes::resize() {
-    BasicNode*** temp = new BasicNode * *[sizeOfTable];
+void HashTableOfMainNodes::resizeHashTable() {
     int tempsize = sizeOfTable;
-    for (int i = 0; i < sizeOfTable; i++) {
-        temp[i] = this->hashtable[i];
-    }
-    delete[] hashtable;
+    vector<BasicNode*>temp(hashTable);
+    hashTable.clear();
     sizeOfTable = this->nextPrime(sizeOfTable * 2);
-    hashtable =new BasicNode**[sizeOfTable];
+    hashTable.resize(sizeOfTable);
     for (int i = 0; i < tempsize; i++)
     {
         this->insert(temp[i]);
     }
-    
-
 }
 //*****************************************************************
-void HashTableOfMainNodes::clear()
-{
-    delete[] this->hashtable;
-    hashtable = new BasicNode * *[sizeOfTable];
+void HashTableOfMainNodes::clearHashTable() {
+    hashTable.clear();
+    hashTable.resize(2);
 }
