@@ -196,9 +196,8 @@ void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree) {
 void AddBranchPizzeria(string name,string mainBranchName, Point p, TwoDTree& currTree) {
 	if (currTree.searchWithCoordinates(p.getX(), p.getY()) != nullptr) throw CustomException("There is another pizzeria in this area!");
 	Node_SubPizza* newPizzeria = new Node_SubPizza(p, name,mainBranchName);
-	currTree.updateSubBranchInVectorAndHash(mainBranchName, newPizzeria);
 	currTree.addSubBranch(newPizzeria);
-	
+	currTree.updateSubBranchInVectorAndHash(mainBranchName, newPizzeria);
 	//Node_MainPizza* temp = dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index]);
 	//dynamic_cast<Node_MainPizza*>(currTree.searchWithCoordinates(4, 4))->printSubBranches();
 
@@ -220,14 +219,20 @@ void help(ConsoleColor textColor, int delayMillis) {
 		throw CustomException("can not open the file...");
 	}
 	string text;
+	int i = 1;
 	while (getline(inputFile, text)) {
+
+		SetConsoleTextAttribute(hConsole, ConsoleColor::White);
+		cout << i << "- ";
+
+		SetConsoleTextAttribute(hConsole, ConsoleColor::Red);
 		for (const char& c : text) {
 			cout << c;
 			Sleep(delayMillis);
 		}
-		cout << endl<<endl;
+		cout << endl;
+		i++;
 	}
-	SetConsoleTextAttribute(hConsole, ConsoleColor::White);
 
 }
 //**************************************************************************************
