@@ -231,3 +231,54 @@ BasicNode* TwoDTree::findNearestSubBranch(Point queryPoint, string mainBranchNam
    return findNearestNeighbourhood(queryPoint, true, tempTree.root);
 
 }
+//**************************************************************************
+void TwoDTree::mostBranches() {
+    vector<pair<string, int>> numbersOfBranches = this->branchesNumbers();
+    vector<pair<string, int>> result(numbersOfBranches.size());
+    this->Sort(numbersOfBranches, result, 0, numbersOfBranches.size() - 1);
+    cout <<"The most branched pizzeria\nName: " << numbersOfBranches[numbersOfBranches.size() - 1].first<<"  "<<"Number of branches: "<< numbersOfBranches[numbersOfBranches.size() - 1].second << endl;
+
+}
+//**************************************************************************
+vector<pair<string,int>> TwoDTree::branchesNumbers() {
+    vector<pair<string,int>> numbersOfBranches;
+    for (int i = 0; i < hashTableOfMainNodes.sizeOfTable; i++)
+    {
+        if (hashTableOfMainNodes.hashTable[i] != NULL)numbersOfBranches.push_back(make_pair(hashTableOfMainNodes.hashTable[i]->name, dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[i])->branches.size()));
+    }
+    return numbersOfBranches;
+}
+//*************************************************************
+void TwoDTree::merge(vector<pair<string, int>>& inputArray, vector<pair<string, int>> tempArray, int lo, int mid, int hi) {
+
+    for (int k = lo; k <= hi; k++) {
+        tempArray[k] = inputArray[k];
+    }
+
+    int i = lo, j = mid + 1;
+    for (int k = lo; k <= hi; k++) {
+        if (i > mid)
+            inputArray[k] = tempArray[j++];
+        else if (j > hi)
+            inputArray[k] = tempArray[i++];
+        else if (tempArray[j].second < tempArray[i].second)
+            inputArray[k] = tempArray[j++];
+        else
+            inputArray[k] = tempArray[i++];
+    }
+
+}
+//*************************************************************
+void TwoDTree::Sort(vector<pair<string, int>>& inputArray, vector<pair<string, int>> tempArray, int lo, int hi) {
+    if (hi <= lo)
+        return;
+    int mid = lo + (hi - lo) / 2;
+    Sort(inputArray, tempArray, lo, mid);
+    Sort(inputArray, tempArray, mid + 1, hi);
+    merge(inputArray, tempArray, lo, mid, hi);
+}
+//*************************************************************
+void TwoDTree::prinSubBranchesTemp(string mainName) {
+    int index = hashTableOfMainNodes.search(mainName);
+    dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->printSubBranches();
+}

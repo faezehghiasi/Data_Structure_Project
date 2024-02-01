@@ -14,6 +14,6 @@ private:
 public:
 	Neighbourhood(Point p1Val, Point p2Val, Point p3Val, Point p4Val,string Name);
 	void findBound();
-	bool isPointInsideNeighbourhood(const Point& point)
+	bool isPointInsideNeighbourhood(const Point& point);
 };
 
