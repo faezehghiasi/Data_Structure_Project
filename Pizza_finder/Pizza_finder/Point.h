@@ -10,6 +10,8 @@ public:
 	friend class BasicNode;
 	friend class TwoDTree;
 	friend class Neighbourhood;
+	friend class Node_SubPizza;
+	friend class Node_MainPizza;
 	void set_x(double xVal);
 	void set_y(double yVal);
 	double distanceSquared(Point);

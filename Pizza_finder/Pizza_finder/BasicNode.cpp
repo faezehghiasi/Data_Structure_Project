@@ -12,3 +12,8 @@ BasicNode& BasicNode:: operator= (BasicNode node) {
 }
 Point BasicNode::getCoordinates() { return coordinates; }
 string BasicNode::getName() { return name; }
+void BasicNode::print() {
+
+	cout << name << " " << "location : " << "( " << coordinates.x << ", " << coordinates.y << " )" << endl;
+
+}

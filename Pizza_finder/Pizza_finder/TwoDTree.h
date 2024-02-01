@@ -2,6 +2,7 @@
 #include"Node_SubPizza.h"
 #include"Node_MainPizza.h"
 #include"BasicNode.h"
+#include"Neighbourhood.h"
 #include<vector>
 using namespace std;
 class TwoDTree
@@ -29,5 +30,7 @@ public:
 	void display(BasicNode* node);
 	friend class HashTableOfTrees;
 	BasicNode* findNearestSubBranch(Point queryPoint, string mainBranchName);
+	void listOfPizzeriasInTheNeighborhood(bool divX, BasicNode* node, vector<BasicNode*>& list, Neighbourhood nb);
+	void listOfPizzeriasInTheNeighborhood(vector<BasicNode*>& list, Neighbourhood nb);
 };
 

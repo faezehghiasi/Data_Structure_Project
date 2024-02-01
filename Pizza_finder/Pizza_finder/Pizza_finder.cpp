@@ -36,13 +36,14 @@ void AddBranchPizzeria(string name, string mainBranchName, Point p, TwoDTree& cu
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree);
 void deleteBranchPizzeria(Point p, TwoDTree& currTree);
 void help(ConsoleColor textColor, int delayMillis);
+void displayListOfPizzeriaInTheNeighbourhood(vector<BasicNode*>& list, TwoDTree& currTree, Neighbourhood& nb);
 //*****************************************************************************
 int main(void) {
 	int i = 0;
 	HashTableOfTrees hashTableOfTrees;
 	string order;
 	string currentOrder;
-	vector<Neighbourhood> Neighbourhoods;
+	vector<Neighbourhood> neighbourhoods;
 	TwoDTree currentTree;
 	//*************************************************************************
 	while (true) {
@@ -65,7 +66,7 @@ int main(void) {
 			currentOrder = order.substr(0, it - 1);
 			try
 			{
-				validCheck(currentOrder, Neighbourhoods, currentTree);
+				validCheck(currentOrder, neighbourhoods, currentTree);
 			}
 			catch (int x)
 			{
@@ -95,14 +96,13 @@ int main(void) {
 }
 /*******************validation******************/
 void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree) {
-
 	if (order.find("Add-N") != -1) {
 		//inja bakhsh regex kareh vase sadegi vorrodi
 		regex check("Add-N \\[[a-zA-Z]+\\] \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\) \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\) \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\) \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");
 		if (!regex_match(order, check))throw 0;
 		string nameOfNei = order.substr(order.find("[") + 1, order.find("]") - 7);
+		Point points[5];
 		int locOfParentheses = order.find("(");
-		Point points[4];
 		string tempOrder, temp2Order;
 		tempOrder = order.substr(locOfParentheses);
 		int index = 0;
@@ -125,8 +125,8 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 			index++;
 		} while (true);
 		Neighbourhood newNeigh(points[0], points[1], points[2], points[3], nameOfNei);
+		newNeigh.findBound();
 		neibhd.push_back(newNeigh);
-		return;
 	}
 	else if (order.find("Add-P") != -1) {
 		regex pattern("Add-P \\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");// adad ashari ro nemigire
@@ -180,15 +180,14 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->printSubBranches();
 	}
 	else if (order.find("List-P") != -1) {
-		regex check("List-Br \\[([a-zA-Z_][a-zA-Z0-9_]*)\\]");
+		regex check("List-P \\[([a-zA-Z_][a-zA-Z0-9_]*)\\]");
 		if (!regex_match(order, check))throw 0;
 		string name = order.substr(order.find("[") + 1, order.find("]") - order.find("[") - 1);
 		int index = hashTableOfMainNodes.search(name);
-
-
-
-
-
+		vector<BasicNode*> list;
+		auto it = find_if(neibhd.begin(), neibhd.end(), [&](auto p) {
+			return p.getName() == name; });
+		displayListOfPizzeriaInTheNeighbourhood(list, currTree, *it);
 	}
 }
 //***************************************************************************
@@ -216,6 +215,13 @@ void deleteBranchPizzeria(Point p, TwoDTree& currTree) {
 	if (findNode == nullptr) throw CustomException("There isn't any pizzeria in this area!");
 	if (typeid(*findNode) == typeid(Node_MainPizza))throw CustomException("The coordinates given belong to a main pizzeria branch, you cannot delete it");
 	currTree.deleteNode(p);
+}
+//*************************************************************************************
+void displayListOfPizzeriaInTheNeighbourhood(vector<BasicNode*>& list,TwoDTree & currTree, Neighbourhood& nb) {
+	currTree.listOfPizzeriasInTheNeighborhood(list, nb);
+	for (int i = 0; i < list.size(); i++) {
+		list[i]->print();
+	}
 }
 //*************************************************************************************
 void help(ConsoleColor textColor, int delayMillis) {

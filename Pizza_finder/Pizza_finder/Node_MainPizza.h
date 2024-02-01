@@ -14,7 +14,7 @@ public:
 	Node_MainPizza(Point p, string nameVal) : BasicNode(p, nameVal) {}
 	void addBranch(Node_SubPizza input);
 	void printSubBranches();
-	void print(){}
+	void print();
 	friend class TwoDTree;
 };
 

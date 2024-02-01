@@ -231,3 +231,37 @@ BasicNode* TwoDTree::findNearestSubBranch(Point queryPoint, string mainBranchNam
    return findNearestNeighbourhood(queryPoint, true, tempTree.root);
 
 }
+//***************************************************************************
+void TwoDTree::listOfPizzeriasInTheNeighborhood(vector<BasicNode*>& list, Neighbourhood nb) {
+    listOfPizzeriasInTheNeighborhood(true, root, list, nb);
+}
+//***************************************************************************
+void TwoDTree::listOfPizzeriasInTheNeighborhood(bool divX, BasicNode* node, vector<BasicNode*>& list, Neighbourhood nb) {
+    if (node == nullptr)return;
+    if (nb.isPointInsideNeighbourhood(node->coordinates)) list.push_back(node);
+    if (divX) {
+        if (node->coordinates.x >= nb.getTopLeft().x && node->coordinates.x <= nb.getBottomRight().x) {
+            listOfPizzeriasInTheNeighborhood(!divX, node->left, list, nb);
+            listOfPizzeriasInTheNeighborhood(!divX, node->right, list, nb);
+        }
+        else if (node->coordinates.x > nb.getBottomRight().x) {
+            listOfPizzeriasInTheNeighborhood(!divX, node->left, list, nb);
+        }
+        else {
+            listOfPizzeriasInTheNeighborhood(!divX, node->right, list, nb);
+        }
+    }
+    else {
+        if (node->coordinates.y >= nb.getBottomRight().y && node->coordinates.y <= nb.getTopLeft().y) {
+            listOfPizzeriasInTheNeighborhood(!divX, node->left, list, nb);
+            listOfPizzeriasInTheNeighborhood(!divX, node->right, list, nb);
+        }
+        else if (node->coordinates.y > nb.getTopLeft().y) {
+            listOfPizzeriasInTheNeighborhood(!divX, node->left, list, nb);
+        }
+        else {
+            listOfPizzeriasInTheNeighborhood(!divX, node->right, list, nb);
+        }
+    }
+
+}

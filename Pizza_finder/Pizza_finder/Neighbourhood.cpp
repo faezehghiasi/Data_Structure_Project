@@ -11,8 +11,8 @@ Neighbourhood::Neighbourhood(Point p1Val, Point p2Val, Point p3Val, Point p4Val,
 void Neighbourhood::findBound() {
 	topLeft.x = min(min(p1.x, p2.x), min(p3.x, p4.x));
 	topLeft.y = max(max(p1.y, p2.y), max(p3.y, p4.y));
-	bottomRight.x = max(std::max(p1.x, p2.x), max(p3.x, p4.x));
-	bottomRight.y = min(std::min(p1.y, p2.y), min(p3.y, p4.y));
+	bottomRight.x = max(max(p1.x, p2.x), max(p3.x, p4.x));
+	bottomRight.y = min(min(p1.y, p2.y), min(p3.y, p4.y));
 }
 //****************************************************************************
 bool Neighbourhood::isPointInsideNeighbourhood(const Point& point) {
@@ -20,3 +20,8 @@ bool Neighbourhood::isPointInsideNeighbourhood(const Point& point) {
 		point.y >= bottomRight.y && point.y <= topLeft.y);
 }
 //****************************************************************************
+Point Neighbourhood::getTopLeft() { return topLeft; }
+//****************************************************************************
+Point Neighbourhood::getBottomRight() { return bottomRight; }
+//*****************************************************************************
+string Neighbourhood::getName() { return name; }
