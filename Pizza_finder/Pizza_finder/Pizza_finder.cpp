@@ -28,7 +28,6 @@ enum ConsoleColor {
 	White = 7,
 	Gray = 8
 };
-
 #pragma warning (disable:4996)
 using namespace std;
 HashTableOfMainNodes hashTableOfMainNodes;
@@ -54,10 +53,8 @@ int main(void) {
 		//******************************************************
 		if (order == "Exit")exit(1);
 		if (order == "Help"||order =="help") {
-			//cout << "You should enter coordinates like (x,y)" << endl;
-			//cout << "You should enter names in brackets : [name]" << endl;
-			//cout << "Press enter to continue...";
-			help(ConsoleColor::Red, 50);
+			help(ConsoleColor::Red, 40);
+			cout << "Press enter to continue...";
 			cin.get();
 			continue;
 		}
@@ -130,7 +127,6 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		Neighbourhood newNeigh(points[0], points[1], points[2], points[3], nameOfNei);
 		neibhd.push_back(newNeigh);
 		return;
-
 	}
 	else if (order.find("Add-P") != -1) {
 		regex pattern("Add-P \\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");// adad ashari ro nemigire
@@ -183,16 +179,15 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		int index = hashTableOfMainNodes.search(name);
 		dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->printSubBranches();
 	}
-	else if (order.find("Near-Br") != -1)
-	{
-		regex check("Near-Br \\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");
+	else if (order.find("List-P") != -1) {
+		regex check("List-Br \\[([a-zA-Z_][a-zA-Z0-9_]*)\\]");
 		if (!regex_match(order, check))throw 0;
-		string mainBranchName = order.substr(order.find("[") + 1, order.find("]") - order.find("[") - 1);
-		string x = order.substr(order.find("(") + 1, (order.find(",") - order.find("(") - 1));
-		string y = order.substr(order.find(",") + 1, (order.find(")") - order.find(",") - 1));
-		Point query(stod(x), stod(y));
-		
-		cout<< "x: " << currTree.findNearestSubBranch(query, mainBranchName)->getCoordinates().getX() << "\tY: " << currTree.findNearestSubBranch(query, mainBranchName)->getCoordinates().getY();
+		string name = order.substr(order.find("[") + 1, order.find("]") - order.find("[") - 1);
+		int index = hashTableOfMainNodes.search(name);
+
+
+
+
 
 	}
 }
@@ -207,6 +202,7 @@ void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree) {
 //***************************************************************************
 void AddBranchPizzeria(string name,string mainBranchName, Point p, TwoDTree& currTree) {
 	if (currTree.searchWithCoordinates(p.getX(), p.getY()) != nullptr) throw CustomException("There is another pizzeria in this area!");
+	if(hashTableOfMainNodes.search(mainBranchName)!=-1) throw CustomException("There is no main branch pizzeria with this name!");
 	Node_SubPizza* newPizzeria = new Node_SubPizza(p, name,mainBranchName);
 	currTree.addSubBranch(newPizzeria);
 	currTree.updateSubBranchInVectorAndHash(mainBranchName, newPizzeria);
@@ -233,10 +229,8 @@ void help(ConsoleColor textColor, int delayMillis) {
 	string text;
 	int i = 1;
 	while (getline(inputFile, text)) {
-
 		SetConsoleTextAttribute(hConsole, ConsoleColor::White);
 		cout << i << "- ";
-
 		SetConsoleTextAttribute(hConsole, ConsoleColor::Red);
 		for (const char& c : text) {
 			cout << c;
@@ -245,7 +239,7 @@ void help(ConsoleColor textColor, int delayMillis) {
 		cout << endl;
 		i++;
 	}
-
+	SetConsoleTextAttribute(hConsole, ConsoleColor::White);
 }
 //**************************************************************************************
 

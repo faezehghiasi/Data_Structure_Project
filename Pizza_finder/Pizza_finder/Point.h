@@ -9,6 +9,7 @@ public:
 	Point& operator =(const Point& p);
 	friend class BasicNode;
 	friend class TwoDTree;
+	friend class Neighbourhood;
 	void set_x(double xVal);
 	void set_y(double yVal);
 	double distanceSquared(Point);
