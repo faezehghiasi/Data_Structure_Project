@@ -183,6 +183,18 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		int index = hashTableOfMainNodes.search(name);
 		dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->printSubBranches();
 	}
+	else if (order.find("Near-Br") != -1)
+	{
+		regex check("Near-Br \\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");
+		if (!regex_match(order, check))throw 0;
+		string mainBranchName = order.substr(order.find("[") + 1, order.find("]") - order.find("[") - 1);
+		string x = order.substr(order.find("(") + 1, (order.find(",") - order.find("(") - 1));
+		string y = order.substr(order.find(",") + 1, (order.find(")") - order.find(",") - 1));
+		Point query(stod(x), stod(y));
+		
+		cout<< "x: " << currTree.findNearestSubBranch(query, mainBranchName)->getCoordinates().getX() << "\tY: " << currTree.findNearestSubBranch(query, mainBranchName)->getCoordinates().getY();
+
+	}
 }
 //***************************************************************************
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree) {
@@ -196,8 +208,8 @@ void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree) {
 void AddBranchPizzeria(string name,string mainBranchName, Point p, TwoDTree& currTree) {
 	if (currTree.searchWithCoordinates(p.getX(), p.getY()) != nullptr) throw CustomException("There is another pizzeria in this area!");
 	Node_SubPizza* newPizzeria = new Node_SubPizza(p, name,mainBranchName);
-	currTree.updateSubBranchInVectorAndHash(mainBranchName, newPizzeria);
 	currTree.addSubBranch(newPizzeria);
+	currTree.updateSubBranchInVectorAndHash(mainBranchName, newPizzeria);
 	
 	//Node_MainPizza* temp = dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index]);
 	//dynamic_cast<Node_MainPizza*>(currTree.searchWithCoordinates(4, 4))->printSubBranches();

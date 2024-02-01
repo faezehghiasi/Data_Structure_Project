@@ -15,7 +15,7 @@ public:
 	vector<BasicNode*>hashTable;
 	int search(string key);
 	HashTableOfMainNodes():sizeOfTable(113){
-		hashTable.resize(113);
+		hashTable.resize(sizeOfTable);
 	}
 	void insert(BasicNode*);
 	void resizeHashTable();
