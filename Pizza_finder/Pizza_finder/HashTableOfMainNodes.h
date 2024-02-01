@@ -4,7 +4,7 @@
 class HashTableOfMainNodes
 {
 private:
-	BasicNode*** hashtable;
+
 	unsigned int sizeOfTable;
 	unsigned int hash2(const string& str);
 	unsigned int hash1(const string& str);
@@ -12,13 +12,18 @@ private:
 	bool isPrime(int num);
 	int nextPrime(int m);
 public:
+	BasicNode** hashtable;
 	int search(string key);
 	void deleteWithKey(string key);
 	HashTableOfMainNodes():sizeOfTable(113){
-		hashtable = new BasicNode**[sizeOfTable];
+		hashtable = new BasicNode*[sizeOfTable];
+		for (int i = 0; i < sizeOfTable; i++) {
+			hashtable[i] = NULL;
+		}
+			
 	}
 	void clear();
-	void insert(BasicNode**);
+	void insert(BasicNode*);
 	void resize();
 };
 

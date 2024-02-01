@@ -41,6 +41,7 @@ BasicNode* TwoDTree::buildTree(bool divX, vector<BasicNode*>nodes) {
     BasicNode* newNode;
     if (typeid(*sortedNodes[mid]) == typeid(Node_MainPizza)) {
         newNode = new Node_MainPizza(sortedNodes[mid]->coordinates.x, sortedNodes[mid]->coordinates.y, sortedNodes[mid]->name);
+        hashTableOfMainNodes.insert(newNode);
         
         
     }

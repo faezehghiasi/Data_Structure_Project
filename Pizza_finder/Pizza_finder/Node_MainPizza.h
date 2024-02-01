@@ -6,11 +6,13 @@ using namespace std;
 class Node_MainPizza:public BasicNode
 {
 private:
-	vector< Node_SubPizza> branches;
+	
 public:
+	vector< Node_SubPizza> branches;
 	Node_MainPizza(double xVal, double yVal, string nameVal): BasicNode(xVal, yVal, nameVal){}
 	Node_MainPizza(Point p, string nameVal) : BasicNode(p, nameVal) {}
 	void addBranch(Node_SubPizza input);
+	void printSubBranches();
 	void print(){}
 	friend class TwoDTree;
 };
