@@ -106,7 +106,7 @@ bool TwoDTree:: shoulReplace(Point queryNode, Point currentNode, Point otherNode
 BasicNode* TwoDTree::findNearestNeighbourhood(Point queryPoint, bool dimention, BasicNode* subroot)
 {
     //$$$$$$$$$$$$$$$$$$$$$ if two point has same distance it returns one $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
+    if (subroot == NULL)throw CustomException("The tree is empty!");
     //exist query point in 2dtree
     if (subroot->coordinates == queryPoint)return subroot;
     //subroot be a leaf
@@ -273,7 +273,16 @@ void TwoDTree::mostBranches() {
     vector<pair<string, int>> numbersOfBranches = this->branchesNumbers();
     vector<pair<string, int>> result(numbersOfBranches.size());
     this->Sort(numbersOfBranches, result, 0, numbersOfBranches.size() - 1);
-    cout <<"The most branched pizzeria\nName: " << numbersOfBranches[numbersOfBranches.size() - 1].first<<"  "<<"Number of branches: "<< numbersOfBranches[numbersOfBranches.size() - 1].second << endl;
+    int index = numbersOfBranches.size()-1;
+    cout << "The most branched pizzeria\n";
+    while (numbersOfBranches[index].second == numbersOfBranches[numbersOfBranches.size() - 1].second)
+    {
+        cout << "Name: " << numbersOfBranches[index].first << "  " << "Number of branches : " << numbersOfBranches[index].second << endl;
+        if (index == 0)break;
+        index--;
+       
+        
+    }
 
 }
 //**************************************************************************
@@ -317,7 +326,8 @@ void TwoDTree::Sort(vector<pair<string, int>>& inputArray, vector<pair<string, i
 //*************************************************************
 void TwoDTree::prinSubBranchesTemp(string mainName) {
     int index = hashTableOfMainNodes.search(mainName);
-    if (index == -1)throw CustomException("There is no main branch pizzeria with this name!");;
+    if (index == -1)throw CustomException("There is no main branch pizzeria with this name!");
+    if (dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->branches.size() == 0)throw CustomException("This main branch doesn't have any sub branch !");
     dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->printSubBranches();
 }
 //*************************************************************

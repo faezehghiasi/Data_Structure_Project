@@ -306,11 +306,12 @@ void help(ConsoleColor textColor, int delayMillis) {
 void undo(int time, int command, TwoDTree& currTree) {
 	currTree.bulidTreeFromTree(hashTableOfTrees.getTreeWithKeyAndChainNumber(time, command));
 }
-
 //***************************************************************************************
 void backToThePresent(TwoDTree& currTree) {
 	currTree = hashTableOfTrees.backToPeresent();
-	currTree.display(currTree.root);
-	cout << "--------------------------------------------"<<endl;
+
+	//^^^^^^^^ display current tree^^^^^^^^^^^^
+	/*currTree.display(currTree.root);
+	cout << "--------------------------------------------"<<endl;*/
 }
 
