@@ -171,10 +171,10 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		string x = order.substr(8, order.find(",") - order.find("(") - 1);
 		string y = order.substr(order.find(",") + 1, order.find(")") - order.find(",") - 1);
 		Point queryPoint(stod(x), stod(y));
-		currTree.findNearestNeighbourhood(queryPoint, true, currTree.getRoot());
+		currTree.findNearestNeighHelper(queryPoint);
 	}
-	else if (order.find("List-Br") != -1) {
-		regex check("List-Br \\[([a-zA-Z_][a-zA-Z0-9_]*)\\]");
+	else if (order.find("List-Brs") != -1) {
+		regex check("List-Brs \\[([a-zA-Z_][a-zA-Z0-9_]*)\\]");
 		if (!regex_match(order, check))throw 0;
 		string name = order.substr(order.find("[") + 1, order.find("]") - order.find("[")-1);
 		currTree.prinSubBranchesTemp(name);
@@ -195,6 +195,22 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		if (!regex_match(order, check))throw 0;
 		currTree.mostBranches();
 	}
+	else if (order.find("Near-Br") != -1)
+	{
+		regex pattern("Near-Br \\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");// adad ashari ro nemigire
+		if (!regex_match(order, pattern))throw 0;
+		string mainName = order.substr((order.find("[") + 1), (order.find("]") - order.find("[") - 1));
+		string x = order.substr(order.find("(") + 1, (order.find(",") - order.find("(") - 1));
+		string y = order.substr(order.find(",") + 1, (order.find(")") - order.find(",") - 1));
+		Point queryPoint(stod(x), stod(y));
+		currTree.findNearestSubBranch(queryPoint, mainName);
+
+	}
+	else if (order.find("Undo") != -1) {
+	regex pattern("Undo\\s+Time\\s*:\\s*\\d+\\s+Command\\s*:\\s*\\d+");
+	if (!regex_match(order, pattern))throw 0;
+
+}
 	else throw 0;
 }
 //***************************************************************************
