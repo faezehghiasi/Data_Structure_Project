@@ -272,6 +272,7 @@ void TwoDTree::listOfPizzeriasInTheNeighborhood(bool divX, BasicNode* node, vect
 void TwoDTree::mostBranches() {
     vector<pair<string, int>> numbersOfBranches = this->branchesNumbers();
     vector<pair<string, int>> result(numbersOfBranches.size());
+    if (numbersOfBranches.size() == 0)throw CustomException("Tree is empty!");
     this->Sort(numbersOfBranches, result, 0, numbersOfBranches.size() - 1);
     int index = numbersOfBranches.size()-1;
     cout << "The most branched pizzeria\n";
@@ -327,7 +328,7 @@ void TwoDTree::Sort(vector<pair<string, int>>& inputArray, vector<pair<string, i
 void TwoDTree::prinSubBranchesTemp(string mainName) {
     int index = hashTableOfMainNodes.search(mainName);
     if (index == -1)throw CustomException("There is no main branch pizzeria with this name!");
-    if (dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->branches.size() == 0)throw CustomException("This main branch doesn't have any sub branch !");
+    if (dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->branches.size() == 0)throw CustomException("This main branch doesn't have any sub branches !");
     dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->printSubBranches();
 }
 //*************************************************************

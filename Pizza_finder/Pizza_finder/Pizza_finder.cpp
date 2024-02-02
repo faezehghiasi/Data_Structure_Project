@@ -33,14 +33,16 @@ void backToThePresent(TwoDTree&);
 HashTableOfMainNodes hashTableOfMainNodes;
 HashTableOfTrees hashTableOfTrees;
 bool isNow = true;
-bool ShouldSaveChanges = false;
+bool ShouldSaveChanges;
 int main(void) {
+	
 	int i = 0;
 	string order;
 	string currentOrder;
 	vector<Neighbourhood> neighbourhoods;
 	TwoDTree currentTree;
 	while (true) {
+		
 		UndoList listOftrees;
 		///system("cls");
 		cout << "Enter the command you want : (Enter Exit for end and Help to see order's form) : ";
@@ -52,6 +54,7 @@ int main(void) {
 		}
 		int it=0;
 		do {
+			ShouldSaveChanges = false;
 			it= order.find("&");
 			currentOrder = order.substr(0, it - 1);
 			try
@@ -219,10 +222,11 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		undo(stoi(time), stoi(command), currTree);
 	}
 	else if (order.find("Redo") != -1)
-	 {
-	 regex pattern("Redo");
-	 if (!regex_match(order, pattern))throw 0;
-	 backToThePresent(currTree);
+	{
+		regex pattern("Redo");
+		if (!regex_match(order, pattern))throw 0;
+		backToThePresent(currTree);
+		isNow = true;
 	}
 	else throw 0;
 }
