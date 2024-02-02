@@ -16,7 +16,7 @@ public:
 	friend class TwoDTree;
 	bool operator ==(BasicNode);
 	Point getCoordinates();
-	virtual BasicNode& operator= (BasicNode);
+   virtual BasicNode& operator= (BasicNode);
 	string getName();
 	
 };

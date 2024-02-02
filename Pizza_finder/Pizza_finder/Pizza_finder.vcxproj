@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicNode.h" />
+    <ClInclude Include="ConsoleColor.h" />
     <ClInclude Include="CustomException.h" />
     <ClInclude Include="HashTableOfMainNodes.h" />
     <ClInclude Include="HashTableOfTrees.h" />

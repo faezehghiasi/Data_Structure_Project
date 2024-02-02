@@ -16,23 +16,11 @@
 #include <windows.h>
 #include"CustomException.h"
 #include"HashTableOfMainNodes.h"
+#include"ConsoleColor.h"
 #include<fstream>
 #include<iostream>
-enum ConsoleColor {
-	Black = 0,
-	Blue = 1,
-	Green = 2,
-	Cyan = 3,
-	Red = 4,
-	Magenta = 5,
-	Yellow = 6,
-	White = 7,
-	Gray = 8
-};
 #pragma warning (disable:4996)
 using namespace std;
-HashTableOfMainNodes hashTableOfMainNodes;
-HashTableOfTrees hashTableOfTrees;
 void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree);
 void AddBranchPizzeria(string name, string mainBranchName, Point p, TwoDTree& currTree);
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree);
@@ -42,6 +30,8 @@ void displayListOfPizzeriaInTheNeighbourhood(vector<BasicNode*>& list, TwoDTree&
 void undo(int time, int command, TwoDTree& currTree);
 void backToThePresent(TwoDTree&);
 //*****************************************************************************
+HashTableOfMainNodes hashTableOfMainNodes;
+HashTableOfTrees hashTableOfTrees;
 bool isNow = true;
 bool ShouldSaveChanges = false;
 int main(void) {
@@ -98,12 +88,6 @@ int main(void) {
 			hashTableOfTrees.display(t);
 			cout << "-----------------------------------------------------\n";
 		}
-
-
-
-
-		
-
 		cin.get();
 	}
 

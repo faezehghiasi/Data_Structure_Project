@@ -3,7 +3,6 @@
 UndoNode::UndoNode(TwoDTree nowTree) {
 	data.nodes.clear();
 	data.nodes.resize(nowTree.nodes.size());
-
 	for (int i = 0; i < nowTree.nodes.size(); i++) {
 		if (typeid(*nowTree.nodes[i]) == typeid(Node_MainPizza)) {
 			Node_MainPizza* temp = dynamic_cast<Node_MainPizza*>(nowTree.nodes[i]);

@@ -13,14 +13,14 @@ private:
 	int nextPrime(int m);
 	vector<BasicNode*>hashTable;
 public:
-	friend class TwoDTree;
-	int search(string key);
 	HashTableOfMainNodes():sizeOfTable(113){
 		hashTable.resize(sizeOfTable);
 	}
+	int search(string key);
 	void insert(BasicNode*);
 	void resizeHashTable();
 	void clearHashTable();
+	friend class TwoDTree;
 
 };
 

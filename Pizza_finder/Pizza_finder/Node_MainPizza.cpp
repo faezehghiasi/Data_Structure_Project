@@ -11,6 +11,7 @@ void Node_MainPizza::printSubBranches() {
 }
 //*************************************************************************
 void Node_MainPizza::print() {
-
 	cout << name << " " << "location : " << "( " << coordinates.x << ", " << coordinates.y << " )" << endl;
 }
+//*************************************************************************
+vector< Node_SubPizza> Node_MainPizza::getBranches() { return branches; }
