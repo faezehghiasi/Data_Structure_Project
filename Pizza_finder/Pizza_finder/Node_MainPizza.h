@@ -15,6 +15,8 @@ public:
 	void addBranch(Node_SubPizza input);
 	void printSubBranches();
 	void print();
+	vector< Node_SubPizza> getBranches() { return branches; }
 	friend class TwoDTree;
+
 };
 

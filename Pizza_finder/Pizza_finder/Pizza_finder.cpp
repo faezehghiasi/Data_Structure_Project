@@ -84,14 +84,16 @@ int main(void) {
 			if (isNow) {
 				UndoNode* newTree = new UndoNode(currentTree);
 				listOftrees.pushBack(newTree);
+				
 			}
 			if(it!=-1)order = order.substr(it + 3);
 		} while (it != -1);
 
 		if (isNow) {
 			hashTableOfTrees.insert(listOftrees);
+			i++;
 		}
-		for (int t = 0; t <= i; t++) {
+		for (int t = 0; t < i; t++) {
 			hashTableOfTrees.display(t);
 			cout << "-----------------------------------------------------\n";
 		}
@@ -99,7 +101,7 @@ int main(void) {
 
 
 
-		i++;
+		
 
 		cin.get();
 	}

@@ -1,5 +1,6 @@
 #pragma once
 #include"UndoNode.h"
+#include"CustomException.h"
 class UndoList
 {
 private:

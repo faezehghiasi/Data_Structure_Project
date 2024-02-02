@@ -16,13 +16,13 @@ void UndoList::pushBack(UndoNode* newNode) {
 TwoDTree UndoList::getDataWithIndex(int index) {
 	UndoNode* temp;
 	temp = root;
-	int counter = 0;
+	int counter = 1;
 	while (temp->next != nullptr) {
-		counter++;
 		if (counter == index)break;
 		temp = temp->next;
+		counter++;
 	}
-	if (index != counter) throw("There is no such this command!");
+	if (index != counter) throw CustomException("There is no such this command!");
 	else return temp->data;
 }
 //****************************************************
