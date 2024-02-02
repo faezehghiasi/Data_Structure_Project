@@ -12,3 +12,9 @@ void UndoList::pushBack(UndoNode* newNode) {
 	temp->next = newNode;
 	newNode->prev = temp;
 }
+//****************************************************
+UndoNode* UndoList::lastChain() {
+	UndoNode* temp = root;
+	while (temp->next != NULL) temp = temp->next;
+	return temp;
+}

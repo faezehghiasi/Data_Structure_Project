@@ -11,5 +11,6 @@ public:
 	//TwoDTree getTreeWithKey(int key);
 	friend class UndoList;
 	void display(int index);
+	TwoDTree backToPeresent();
 };
 

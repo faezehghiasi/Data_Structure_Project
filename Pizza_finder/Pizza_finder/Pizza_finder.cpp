@@ -31,16 +31,17 @@ enum ConsoleColor {
 #pragma warning (disable:4996)
 using namespace std;
 HashTableOfMainNodes hashTableOfMainNodes;
+HashTableOfTrees hashTableOfTrees;
 void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree);
 void AddBranchPizzeria(string name, string mainBranchName, Point p, TwoDTree& currTree);
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree);
 void deleteBranchPizzeria(Point p, TwoDTree& currTree);
 void help(ConsoleColor textColor, int delayMillis);
 void displayListOfPizzeriaInTheNeighbourhood(vector<BasicNode*>& list, TwoDTree& currTree, Neighbourhood& nb);
+void backToThePresent(TwoDTree&);
 //*****************************************************************************
 int main(void) {
 	int i = 0;
-	HashTableOfTrees hashTableOfTrees;
 	string order;
 	string currentOrder;
 	vector<Neighbourhood> neighbourhoods;
@@ -82,10 +83,17 @@ int main(void) {
 			if(it!=-1)order = order.substr(it + 3);
 		} while (it != -1);
 		hashTableOfTrees.insert(listOftrees);
-		for (int t = 0; t <= i; t++) {
+
+
+
+		/*for (int t = 0; t <= i; t++) {
 			hashTableOfTrees.display(t);
 			cout << "-----------------------------------------------------\n";
-		}
+		}*/
+
+
+
+
 		i++;
 
 		cin.get();
@@ -210,7 +218,13 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 	regex pattern("Undo\\s+Time\\s*:\\s*\\d+\\s+Command\\s*:\\s*\\d+");
 	if (!regex_match(order, pattern))throw 0;
 
-}
+	}
+	else if (order.find("Redo") != -1)
+	 {
+	 regex pattern("Redo");
+	 if (!regex_match(order, pattern))throw 0;
+	 backToThePresent(currTree);
+	}
 	else throw 0;
 }
 //***************************************************************************
@@ -278,4 +292,8 @@ void help(ConsoleColor textColor, int delayMillis) {
 	cin.get();
 }
 //**************************************************************************************
-
+void backToThePresent(TwoDTree& currTree) {
+	currTree = hashTableOfTrees.backToPeresent();
+	currTree.display(currTree.root);
+	cout << "--------------------------------------------"<<endl;
+}

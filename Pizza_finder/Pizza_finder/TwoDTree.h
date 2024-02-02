@@ -8,7 +8,7 @@ using namespace std;
 class TwoDTree
 {
 private:
-	BasicNode* root;
+	
 	vector<BasicNode*>nodes;
 	void clearTree(BasicNode*);
 	BasicNode* buildTree(bool, vector<BasicNode*>,bool isUndoNode);
@@ -19,6 +19,10 @@ private:
 	vector<pair<string, int>> branchesNumbers();
 	BasicNode* findNearestNeighbourhood(Point queryPoint, bool dimention, BasicNode* subroot);
 public:
+	BasicNode* root;
+
+
+
 	TwoDTree() :root(nullptr) {}
 	void addMainBranch(Node_MainPizza*);
 	void addSubBranch(Node_SubPizza*);
@@ -37,5 +41,6 @@ public:
 	void mostBranches();
 	void prinSubBranchesTemp(string mainName);
 	void findNearestNeighHelper(Point);
+	TwoDTree& operator =(TwoDTree t);
 };
 

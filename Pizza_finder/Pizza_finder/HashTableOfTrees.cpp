@@ -11,3 +11,7 @@ void HashTableOfTrees::display(int index) {
 	this->hashTable[index].root->data.display(this->hashTable[index].root->data.root);
 }
 //*******************************************************
+TwoDTree HashTableOfTrees::backToPeresent()
+{
+	return this->hashTable[this->hashTable.size() - 1].lastChain()->data;
+}
