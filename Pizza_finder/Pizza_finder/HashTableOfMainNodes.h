@@ -6,7 +6,7 @@ class HashTableOfMainNodes
 private:
 
 	unsigned int sizeOfTable;
-	//unsigned int hash2(const string& str);
+	unsigned int hash2(const string& str);
 	unsigned int hash1(const string& str);
 	unsigned int finalHash(const string& key, int i);
 	bool isPrime(int num);

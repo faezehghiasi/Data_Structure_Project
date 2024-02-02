@@ -237,6 +237,7 @@ void TwoDTree::listOfPizzeriasInTheNeighborhood(vector<BasicNode*>& list, Neighb
 }
 //***************************************************************************
 void TwoDTree::listOfPizzeriasInTheNeighborhood(bool divX, BasicNode* node, vector<BasicNode*>& list, Neighbourhood nb) {
+   
     if (node == nullptr)return;
     if (nb.isPointInsideNeighbourhood(node->coordinates)) list.push_back(node);
     if (divX) {

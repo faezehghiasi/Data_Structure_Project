@@ -45,21 +45,16 @@ int main(void) {
 	string currentOrder;
 	vector<Neighbourhood> neighbourhoods;
 	TwoDTree currentTree;
-	//*************************************************************************
 	while (true) {
 		UndoList listOftrees;
 		///system("cls");
 		cout << "Enter the command you want : (Enter Exit for end and Help to see order's form) : ";
 		getline(cin, order);
-		//******************************************************
 		if (order == "Exit")exit(1);
 		if (order == "Help"||order =="help") {
-			help(ConsoleColor::Red, 40);
-			cout << "Press enter to continue...";
-			cin.get();
+			help(ConsoleColor::Yellow, 40);
 			continue;
 		}
-		//*********************************************************
 		int it=0;
 		do {
 			it= order.find("&");
@@ -70,7 +65,7 @@ int main(void) {
 			}
 			catch (int x)
 			{
-				cout << "Unvalid input!" << endl;
+				cout << "Invalid input!" << endl;
 				cout << "Enter Help to show the commands..." << endl;
 				cout << "Press enter to continue...";
 				cin.get();
@@ -78,26 +73,29 @@ int main(void) {
 			}
 			catch (const exception& e) {
 				cerr << e.what() << endl;
+				cout << "Press enter to continue...";
+				cin.get();
+				break;
 			}
 			UndoNode* newTree = new UndoNode(currentTree);
 			listOftrees.pushBack(newTree);
 			if(it!=-1)order = order.substr(it + 3);
 		} while (it != -1);
 		hashTableOfTrees.insert(listOftrees);
-	///*	for (int t = 0; t <= i; t++) {
-	//		hashTableOfTrees.display(t);
-	//		cout << "-----------------------------------------------------\n";
-	//	}
-	//	i++;*/
+		for (int t = 0; t <= i; t++) {
+			hashTableOfTrees.display(t);
+			cout << "-----------------------------------------------------\n";
+		}
+		i++;
 
 		cin.get();
 	}
 
 }
-/*******************validation******************/
+//*******************validation*******************************************************
 void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree) {
 	if (order.find("Add-N") != -1) {
-		//inja bakhsh regex kareh vase sadegi vorrodi
+
 		regex check("Add-N \\[[a-zA-Z]+\\] \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\) \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\) \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\) \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");
 		if (!regex_match(order, check))throw 0;
 		string nameOfNei = order.substr(order.find("[") + 1, order.find("]") - 7);
@@ -127,6 +125,9 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		Neighbourhood newNeigh(points[0], points[1], points[2], points[3], nameOfNei);
 		newNeigh.findBound();
 		neibhd.push_back(newNeigh);
+		cout << "Your request has been successfully completed" << endl;
+		cout << "Press enter to continue...";
+		cin.get();
 	}
 	else if (order.find("Add-P") != -1) {
 		regex pattern("Add-P \\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");// adad ashari ro nemigire
@@ -193,8 +194,8 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		regex check("Most-Brs");
 		if (!regex_match(order, check))throw 0;
 		currTree.mostBranches();
-
 	}
+	else throw 0;
 }
 //***************************************************************************
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree) {
@@ -202,7 +203,9 @@ void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree) {
 	if (currTree.searchWithCoordinates(p.getX(), p.getY()) != nullptr) throw CustomException("There is another pizzeria in this area!");
 	Node_MainPizza* newPizzeria = new Node_MainPizza(p, name);
 	currTree.addMainBranch(newPizzeria);
-	//error  for name
+	cout << "Your request has been successfully completed" << endl;
+	cout << "Press enter to continue...";
+	cin.get();
 }
 //***************************************************************************
 void AddBranchPizzeria(string name,string mainBranchName, Point p, TwoDTree& currTree) {
@@ -211,9 +214,9 @@ void AddBranchPizzeria(string name,string mainBranchName, Point p, TwoDTree& cur
 	Node_SubPizza* newPizzeria = new Node_SubPizza(p, name,mainBranchName);
 	currTree.addSubBranch(newPizzeria);
 	currTree.updateSubBranchInVectorAndHash(mainBranchName, newPizzeria);
-	//Node_MainPizza* temp = dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index]);
-	//dynamic_cast<Node_MainPizza*>(currTree.searchWithCoordinates(4, 4))->printSubBranches();
-
+	cout << "Your request has been successfully completed" << endl;
+	cout << "Press enter to continue...";
+	cin.get();
 }
 //***************************************************************************
 void deleteBranchPizzeria(Point p, TwoDTree& currTree) {
@@ -221,6 +224,9 @@ void deleteBranchPizzeria(Point p, TwoDTree& currTree) {
 	if (findNode == nullptr) throw CustomException("There isn't any pizzeria in this area!");
 	if (typeid(*findNode) == typeid(Node_MainPizza))throw CustomException("The coordinates given belong to a main pizzeria branch, you cannot delete it");
 	currTree.deleteNode(p);
+	cout << "Your request has been successfully completed" << endl;
+	cout << "Press enter to continue...";
+	cin.get();
 }
 //*************************************************************************************
 void displayListOfPizzeriaInTheNeighbourhood(vector<BasicNode*>& list,TwoDTree & currTree, Neighbourhood& nb) {
@@ -243,7 +249,7 @@ void help(ConsoleColor textColor, int delayMillis) {
 	while (getline(inputFile, text)) {
 		SetConsoleTextAttribute(hConsole, ConsoleColor::White);
 		cout << i << "- ";
-		SetConsoleTextAttribute(hConsole, ConsoleColor::Red);
+		SetConsoleTextAttribute(hConsole, textColor);
 		for (const char& c : text) {
 			cout << c;
 			Sleep(delayMillis);
@@ -252,6 +258,8 @@ void help(ConsoleColor textColor, int delayMillis) {
 		i++;
 	}
 	SetConsoleTextAttribute(hConsole, ConsoleColor::White);
+	cout << "Press enter to continue...";
+	cin.get();
 }
 //**************************************************************************************
 

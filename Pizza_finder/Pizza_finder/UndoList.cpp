@@ -1,6 +1,9 @@
 #include "UndoList.h"
 void UndoList::pushBack(UndoNode* newNode) {
-	if (root == nullptr)root = newNode;
+	if (root == nullptr) { 
+		root = newNode; 
+		return;
+	}
 	UndoNode* temp;
 	temp = root;
 	while (temp->next != nullptr) {

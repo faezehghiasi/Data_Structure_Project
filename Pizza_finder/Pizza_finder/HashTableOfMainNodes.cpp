@@ -35,13 +35,13 @@ int HashTableOfMainNodes:: nextPrime(int m) {
     }
 }
 //******************************************************************
-//unsigned int HashTableOfMainNodes:: hash2(const string& str) {
-//    unsigned long hash = 5381;
-//    for (char ch : str) {
-//        hash = ((hash << 5) + hash) + ch; // hash * 33 + ch
-//    }
-//    return hash % sizeOfTable;
-//}
+unsigned int HashTableOfMainNodes:: hash2(const string& str) {
+    unsigned long hash = 5381;
+    for (char ch : str) {
+        hash = ((hash << 5) + hash) + ch; // hash * 33 + ch
+    }
+    return hash % sizeOfTable;
+}
 //******************************************************************
 unsigned int HashTableOfMainNodes::finalHash(const string& key, int i) {
     int index = (hash1(key) + i) % sizeOfTable;
@@ -59,7 +59,6 @@ int HashTableOfMainNodes::search(string key) {
     }
     return -1;
 }
-
 //*****************************************************************************
 void HashTableOfMainNodes::insert(BasicNode* newNode) {
     int i = 0;
