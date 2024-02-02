@@ -297,7 +297,9 @@ void undo(int time, int command, TwoDTree& currTree) {
 //***************************************************************************************
 void backToThePresent(TwoDTree& currTree) {
 	currTree = hashTableOfTrees.backToPeresent();
-	currTree.display(currTree.root);
-	cout << "--------------------------------------------"<<endl;
+
+	//^^^^^^^^ display current tree^^^^^^^^^^^^
+	/*currTree.display(currTree.root);
+	cout << "--------------------------------------------"<<endl;*/
 }
 
