@@ -43,6 +43,7 @@ void undo(int time, int command, TwoDTree& currTree);
 void backToThePresent(TwoDTree&);
 //*****************************************************************************
 bool isNow = true;
+bool ShouldSaveChanges = false;
 int main(void) {
 	int i = 0;
 	string order;
@@ -81,7 +82,7 @@ int main(void) {
 				cin.get();
 				break;
 			}
-			if (isNow) {
+			if (isNow && ShouldSaveChanges) {
 				UndoNode* newTree = new UndoNode(currentTree);
 				listOftrees.pushBack(newTree);
 				
@@ -89,7 +90,7 @@ int main(void) {
 			if(it!=-1)order = order.substr(it + 3);
 		} while (it != -1);
 
-		if (isNow) {
+		if (isNow && ShouldSaveChanges) {
 			hashTableOfTrees.insert(listOftrees);
 			i++;
 		}
@@ -152,6 +153,7 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		string y = order.substr(order.find(",") + 1, (order.find(")") - order.find(",") - 1));
 		Point point(stod(x), stod(y));
 		AddMainBranchPizzeria(name, point, currTree);
+		ShouldSaveChanges = true;
 	}
 	else if (order.find("Add-Br") != -1) {
 		regex pattern("Add-Br\\s+\\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\[([a-zA-Z_][a-zA-Z0-9_]*)\\]\\s+\\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");// adad ashari ro nemigire
@@ -163,6 +165,7 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		string y = order.substr(order.find(",") + 1, (order.find(")") - order.find(",") - 1));
 		Point point(stod(x), stod(y));
 		AddBranchPizzeria(name,mainBranchName, point, currTree);
+		ShouldSaveChanges = true;
 	}
 	else if (order.find("Avail-P") != -1) {
 		regex pattern("Avail-P -?\\d+(\\.\\d+)?\\s+\\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");
@@ -179,6 +182,7 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		string y = order.substr(order.find(",")+1, order.find(")") -order.find(",")-1);
 		Point remvNode(stod(x), stod(y));
 		deleteBranchPizzeria(remvNode, currTree);
+		ShouldSaveChanges = true;
 	}
 	else if (order.find("Near-P") != -1) {
 		regex check("Near-P \\(-?\\d+(\\.\\d+)?\\,-?\\d+(\\.\\d+)?\\)");
@@ -306,7 +310,6 @@ void help(ConsoleColor textColor, int delayMillis) {
 void undo(int time, int command, TwoDTree& currTree) {
 	currTree.bulidTreeFromTree(hashTableOfTrees.getTreeWithKeyAndChainNumber(time, command));
 }
-
 //***************************************************************************************
 void backToThePresent(TwoDTree& currTree) {
 	currTree = hashTableOfTrees.backToPeresent();
