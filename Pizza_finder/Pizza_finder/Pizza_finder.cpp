@@ -17,6 +17,7 @@
 #include"CustomException.h"
 #include"HashTableOfMainNodes.h"
 #include<fstream>
+#include<iostream>
 enum ConsoleColor {
 	Black = 0,
 	Blue = 1,
@@ -31,16 +32,18 @@ enum ConsoleColor {
 #pragma warning (disable:4996)
 using namespace std;
 HashTableOfMainNodes hashTableOfMainNodes;
+HashTableOfTrees hashTableOfTrees;
 void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree);
 void AddBranchPizzeria(string name, string mainBranchName, Point p, TwoDTree& currTree);
 void AddMainBranchPizzeria(string name, Point p, TwoDTree& currTree);
 void deleteBranchPizzeria(Point p, TwoDTree& currTree);
 void help(ConsoleColor textColor, int delayMillis);
 void displayListOfPizzeriaInTheNeighbourhood(vector<BasicNode*>& list, TwoDTree& currTree, Neighbourhood& nb);
+void undo(int time, int command, TwoDTree& currTree);
 //*****************************************************************************
+bool isNow = true;
 int main(void) {
 	int i = 0;
-	HashTableOfTrees hashTableOfTrees;
 	string order;
 	string currentOrder;
 	vector<Neighbourhood> neighbourhoods;
@@ -77,11 +80,15 @@ int main(void) {
 				cin.get();
 				break;
 			}
-			UndoNode* newTree = new UndoNode(currentTree);
-			listOftrees.pushBack(newTree);
+			if (isNow) {
+				UndoNode* newTree = new UndoNode(currentTree);
+				listOftrees.pushBack(newTree);
+			}
 			if(it!=-1)order = order.substr(it + 3);
 		} while (it != -1);
-		hashTableOfTrees.insert(listOftrees);
+		if (isNow) {
+			hashTableOfTrees.insert(listOftrees);
+		}
 		for (int t = 0; t <= i; t++) {
 			hashTableOfTrees.display(t);
 			cout << "-----------------------------------------------------\n";
@@ -207,10 +214,14 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 
 	}
 	else if (order.find("Undo") != -1) {
-	regex pattern("Undo\\s+Time\\s*:\\s*\\d+\\s+Command\\s*:\\s*\\d+");
-	if (!regex_match(order, pattern))throw 0;
-
-}
+		regex pattern("Undo\\s+Time\\s*:\\s*\\d+\\s+Command\\s*:\\s*\\d+");
+		if (!regex_match(order, pattern))throw 0;
+		isNow = false;
+		string time = order.substr(order.find(":")+1, order.find("C") - order.find(":") - 1);
+		order = order.substr(order.find("a"));
+		string command = order.substr(order.find(":")+1);
+		undo(stoi(time), stoi(command), currTree);
+	}
 	else throw 0;
 }
 //***************************************************************************
@@ -278,4 +289,7 @@ void help(ConsoleColor textColor, int delayMillis) {
 	cin.get();
 }
 //**************************************************************************************
+void undo(int time, int command, TwoDTree& currTree) {
+	currTree.bulidTreeFromTree(hashTableOfTrees.getTreeWithKeyAndChainNumber(time, command));
+}
 

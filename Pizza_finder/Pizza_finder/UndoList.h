@@ -7,6 +7,7 @@ private:
 public:
 	UndoList() :root(nullptr){}
 	void pushBack(UndoNode*);
+	TwoDTree getDataWithIndex(int index);
 	friend class HashTableOfTrees;
 };
 

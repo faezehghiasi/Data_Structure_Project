@@ -325,3 +325,13 @@ void TwoDTree::findNearestNeighHelper(Point queryPoint) {
      auto near=this->findNearestNeighbourhood(queryPoint, true, this->root);
      near->print();
 }
+//**************************************************************
+void TwoDTree::bulidTreeFromTree(TwoDTree newTree) {
+    clearTree(root);
+    nodes.clear();
+    hashTableOfMainNodes.clearHashTable();
+    for (int i = 0; i < newTree.nodes.size(); i++) {
+        nodes.push_back(newTree.nodes[i]);
+    }
+    root = buildTree(true, nodes, false);
+}

@@ -8,7 +8,7 @@ private:
 public:
 	HashTableOfTrees(){}
 	void insert(UndoList newList);
-	//TwoDTree getTreeWithKey(int key);
+	TwoDTree getTreeWithKeyAndChainNumber(int key,int chainNumber);
 	friend class UndoList;
 	void display(int index);
 };
