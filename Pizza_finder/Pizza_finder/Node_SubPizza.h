@@ -9,7 +9,7 @@ public:
 	Node_SubPizza(Point p, string nameVal, string mainBranchNameVal)
 		:BasicNode(p, nameVal), mainBranchName(mainBranchNameVal) {}
 	void print();
-
+	string getMainBranchName();
 	friend class TwoDTree;
 };
 

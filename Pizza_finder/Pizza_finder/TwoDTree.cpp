@@ -60,6 +60,9 @@ BasicNode* TwoDTree::buildTree(bool divX, vector<BasicNode*>nodes,bool isUndoNod
 //****************************************************************************
 void TwoDTree::deleteNode(Point removeCoor) {
     auto locOfRmvNode = find_if(this->nodes.begin(), this->nodes.end(), [&](auto a) { return removeCoor == a->coordinates; });
+    auto locOfMainRmvNode = find_if(this->nodes.begin(), this->nodes.end(), [=](auto a) { return a->name == dynamic_cast<Node_SubPizza*>(*locOfRmvNode)->getMainBranchName(); });
+    auto locOfRmvNodeInBranchesOfMain = find_if(dynamic_cast<Node_MainPizza*>(*locOfMainRmvNode)->branches.begin(), dynamic_cast<Node_MainPizza*>(*locOfMainRmvNode)->branches.end(), [&](auto a) {return a.coordinates == removeCoor; });
+    dynamic_cast<Node_MainPizza*>(*locOfMainRmvNode)->branches.erase(locOfRmvNodeInBranchesOfMain);
     this->nodes.erase(locOfRmvNode);
     this->clearTree(this->root);
     hashTableOfMainNodes.clearHashTable();
@@ -169,10 +172,6 @@ bool TwoDTree::isFirstPointSmaller(const Point& first, const Point& second, bool
         else return false;
     }
 }
-//***************************************************************************
-BasicNode* TwoDTree::getRoot() {
-    return this->root;
-}
 //*************************************************************************
 void TwoDTree::display(BasicNode* node) {
     if (node != nullptr) {
@@ -222,13 +221,16 @@ void TwoDTree::updateSubBranchInVectorAndHash(string mainBranchName,BasicNode* s
     dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->branches.push_back(*(dynamic_cast<Node_SubPizza*>(subNode)));
 }
 //**************************************************************************
-BasicNode* TwoDTree::findNearestSubBranch(Point queryPoint, string mainBranchName) {
+void TwoDTree::findNearestSubBranch(Point queryPoint, string mainBranchName) {
    int index= hashTableOfMainNodes.search(mainBranchName);
+   if (index == -1)throw CustomException("There is no main branch pizzeria with this name!");
    TwoDTree tempTree;
    int countOfSubBranchs = dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->branches.size();
+   if (countOfSubBranchs == 0)throw CustomException("This main branch doesn't have any sub branches!");
    for (int i = 0; i < countOfSubBranchs; i++)tempTree.nodes.push_back(&dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->branches[i]);
    tempTree.root = buildTree(true, tempTree.nodes, false);
-   return findNearestNeighbourhood(queryPoint, true, tempTree.root);
+   auto near= findNearestNeighbourhood(queryPoint, true, tempTree.root);
+   near->print();
 
 }
 //***************************************************************************
@@ -314,5 +316,11 @@ void TwoDTree::Sort(vector<pair<string, int>>& inputArray, vector<pair<string, i
 //*************************************************************
 void TwoDTree::prinSubBranchesTemp(string mainName) {
     int index = hashTableOfMainNodes.search(mainName);
+    if (index == -1)throw CustomException("There is no main branch pizzeria with this name!");;
     dynamic_cast<Node_MainPizza*>(hashTableOfMainNodes.hashTable[index])->printSubBranches();
+}
+//*************************************************************
+void TwoDTree::findNearestNeighHelper(Point queryPoint) {
+     auto near=this->findNearestNeighbourhood(queryPoint, true, this->root);
+     near->print();
 }

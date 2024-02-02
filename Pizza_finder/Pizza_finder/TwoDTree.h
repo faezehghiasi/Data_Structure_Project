@@ -17,25 +17,25 @@ private:
 	void merge(vector<pair<string, int>>& inputArray, vector<pair<string, int>> tempArray, int low, int mid, int hi);
 	void Sort(vector<pair<string, int>>& inputArray, vector<pair<string, int>> tempArray, int low, int hi);
 	vector<pair<string, int>> branchesNumbers();
+	BasicNode* findNearestNeighbourhood(Point queryPoint, bool dimention, BasicNode* subroot);
 public:
 	TwoDTree() :root(nullptr) {}
 	void addMainBranch(Node_MainPizza*);
 	void addSubBranch(Node_SubPizza*);
 	void deleteNode(Point removeCoord);
 	bool shoulReplace(Point queryNode,Point currentNode,Point otherNode);
-	BasicNode* findNearestNeighbourhood(Point queryPoint,bool dimention,BasicNode* subroot);
 	bool isFirstPointSmaller(const Point& first, const Point& second, bool dim);
 	friend class UndoNode;
 	void rangeSearch(double x, double y, double radius);
-	BasicNode* getRoot();
 	BasicNode* searchWithCoordinates(double x, double y);
 	void updateSubBranchInVectorAndHash(string mainBranchName,BasicNode* subNode);
 	void display(BasicNode* node);
 	friend class HashTableOfTrees;
-	BasicNode* findNearestSubBranch(Point queryPoint, string mainBranchName);
+	void findNearestSubBranch(Point queryPoint, string mainBranchName);
 	void listOfPizzeriasInTheNeighborhood(bool divX, BasicNode* node, vector<BasicNode*>& list, Neighbourhood nb);
 	void listOfPizzeriasInTheNeighborhood(vector<BasicNode*>& list, Neighbourhood nb);
 	void mostBranches();
 	void prinSubBranchesTemp(string mainName);
+	void findNearestNeighHelper(Point);
 };
 
