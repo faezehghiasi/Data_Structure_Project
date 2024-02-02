@@ -40,6 +40,7 @@ void deleteBranchPizzeria(Point p, TwoDTree& currTree);
 void help(ConsoleColor textColor, int delayMillis);
 void displayListOfPizzeriaInTheNeighbourhood(vector<BasicNode*>& list, TwoDTree& currTree, Neighbourhood& nb);
 void undo(int time, int command, TwoDTree& currTree);
+void backToThePresent(TwoDTree&);
 //*****************************************************************************
 bool isNow = true;
 int main(void) {
@@ -86,6 +87,7 @@ int main(void) {
 			}
 			if(it!=-1)order = order.substr(it + 3);
 		} while (it != -1);
+
 		if (isNow) {
 			hashTableOfTrees.insert(listOftrees);
 		}
@@ -93,6 +95,10 @@ int main(void) {
 			hashTableOfTrees.display(t);
 			cout << "-----------------------------------------------------\n";
 		}
+
+
+
+
 		i++;
 
 		cin.get();
@@ -214,13 +220,19 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 
 	}
 	else if (order.find("Undo") != -1) {
-		regex pattern("Undo\\s+Time\\s*:\\s*\\d+\\s+Command\\s*:\\s*\\d+");
+			regex pattern("Undo\\s+Time\\s*:\\s*\\d+\\s+Command\\s*:\\s*\\d+");
 		if (!regex_match(order, pattern))throw 0;
 		isNow = false;
-		string time = order.substr(order.find(":")+1, order.find("C") - order.find(":") - 1);
+		string time = order.substr(order.find(":") + 1, order.find("C") - order.find(":") - 1);
 		order = order.substr(order.find("a"));
-		string command = order.substr(order.find(":")+1);
+		string command = order.substr(order.find(":") + 1);
 		undo(stoi(time), stoi(command), currTree);
+	}
+	else if (order.find("Redo") != -1)
+	 {
+	 regex pattern("Redo");
+	 if (!regex_match(order, pattern))throw 0;
+	 backToThePresent(currTree);
 	}
 	else throw 0;
 }
@@ -291,5 +303,12 @@ void help(ConsoleColor textColor, int delayMillis) {
 //**************************************************************************************
 void undo(int time, int command, TwoDTree& currTree) {
 	currTree.bulidTreeFromTree(hashTableOfTrees.getTreeWithKeyAndChainNumber(time, command));
+}
+
+//***************************************************************************************
+void backToThePresent(TwoDTree& currTree) {
+	currTree = hashTableOfTrees.backToPeresent();
+	currTree.display(currTree.root);
+	cout << "--------------------------------------------"<<endl;
 }
 

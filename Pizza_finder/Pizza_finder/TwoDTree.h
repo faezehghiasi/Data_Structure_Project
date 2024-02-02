@@ -9,7 +9,6 @@ class TwoDTree
 {
 private:
 	void clearTree(BasicNode*);
-	BasicNode* root;
 	vector<BasicNode*>nodes;
 	BasicNode* buildTree(bool, vector<BasicNode*>,bool isUndoNode);
 	void rangeSearch(bool divX, BasicNode* node, double x, double y, double radius, bool& res);
@@ -19,6 +18,10 @@ private:
 	vector<pair<string, int>> branchesNumbers();
 	BasicNode* findNearestNeighbourhood(Point queryPoint, bool dimention, BasicNode* subroot);
 public:
+	BasicNode* root;
+
+
+
 	TwoDTree() :root(nullptr) {}
 	~TwoDTree() { clearTree(root); }
 	void addMainBranch(Node_MainPizza*);
@@ -39,6 +42,6 @@ public:
 	void prinSubBranchesTemp(string mainName);
 	void findNearestNeighHelper(Point);
 	void bulidTreeFromTree(TwoDTree newTree);
-
+	TwoDTree& operator =(TwoDTree t);
 };
 

@@ -25,3 +25,9 @@ TwoDTree UndoList::getDataWithIndex(int index) {
 	if (index != counter) throw("There is no such this command!");
 	else return temp->data;
 }
+//****************************************************
+UndoNode* UndoList::lastChain() {
+	UndoNode* temp = root;
+	while (temp->next != NULL) temp = temp->next;
+	return temp;
+}

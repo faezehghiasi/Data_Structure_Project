@@ -335,3 +335,13 @@ void TwoDTree::bulidTreeFromTree(TwoDTree newTree) {
     }
     root = buildTree(true, nodes, false);
 }
+//**************************************************************
+TwoDTree& TwoDTree:: operator =(TwoDTree t) {
+    this->clearTree(this->root);
+    this->nodes.resize(t.nodes.size());
+    for (int i = 0; i < t.nodes.size(); i++)this->nodes[i] = t.nodes[i];
+    hashTableOfMainNodes.clearHashTable();
+    this->root=this->buildTree(true, this->nodes, false);
+    return *this;
+
+}

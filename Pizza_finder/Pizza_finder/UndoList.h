@@ -9,5 +9,6 @@ public:
 	void pushBack(UndoNode*);
 	TwoDTree getDataWithIndex(int index);
 	friend class HashTableOfTrees;
+	UndoNode* lastChain();
 };
 
