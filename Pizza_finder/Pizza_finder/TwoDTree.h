@@ -20,7 +20,6 @@ private:
 	BasicNode* findNearestNeighbourhood(Point queryPoint, bool dimention, BasicNode* subroot);
 public:
 	TwoDTree() :root(nullptr) {}
-	~TwoDTree() { clearTree(root); }
 	void addMainBranch(Node_MainPizza*);
 	void addSubBranch(Node_SubPizza*);
 	void deleteNode(Point removeCoord);
