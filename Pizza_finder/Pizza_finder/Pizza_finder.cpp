@@ -193,6 +193,7 @@ void validCheck(string order, vector<Neighbourhood>& neibhd, TwoDTree& currTree)
 		vector<BasicNode*> list;
 		auto it = find_if(neibhd.begin(), neibhd.end(), [&](auto p) {
 			return p.getName() == name; });
+		if (it == neibhd.end())throw CustomException("A neighborhood with this name has not been registered!");
 		displayListOfPizzeriaInTheNeighbourhood(list, currTree, *it);
 	}
 	else if (order.find("Most-Brs") != -1)

@@ -71,7 +71,7 @@ void TwoDTree::deleteNode(Point removeCoor) {
 //****************************************************************************
 void TwoDTree:: rangeSearch(double x, double y, double dist) {
     double radius = dist * dist;
-    static bool res = false;
+    bool res = false;
     rangeSearch(true, root, x, y, radius,res);
     if (!res) throw CustomException("There is no pizzeria in the desired radius around this point!");
 }
