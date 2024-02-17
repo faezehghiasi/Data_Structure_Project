@@ -44,7 +44,7 @@ int main(void) {
 	while (true) {
 		
 		UndoList listOftrees;
-		///system("cls");
+		system("cls");
 		cout << "Enter the command you want : (Enter Exit for end and Help to see order's form) : ";
 		getline(cin, order);
 		if (order == "Exit")exit(1);
@@ -87,11 +87,11 @@ int main(void) {
 			hashTableOfTrees.insert(listOftrees);
 			i++;
 		}
-		for (int t = 0; t < i; t++) {
+	/*	for (int t = 0; t < i; t++) {
 			hashTableOfTrees.display(t);
 			cout << "-----------------------------------------------------\n";
-		}
-		cin.get();
+		}*/
+		//cin.get();
 	}
 
 }
