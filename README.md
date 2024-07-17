@@ -38,69 +38,69 @@ This project is a data structures assignment for the Data Structures course. It 
 
 ```Add-N [NEIGHBORHOOD_NAME] [X1] [Y1] [X2] [Y2]```
 
-**Adds a neighborhood with the specified name and rectangular coordinates (X1, Y1) to (X2, Y2).**
+*Adds a neighborhood with the specified name and rectangular coordinates (X1, Y1) to (X2, Y2).
 
 
 ### Add Main Pizza Store
 
 ``` Add-P [PIZZA_STORE_NAME] [X] [Y]```
 
-**Adds a main pizza store with the specified name at coordinates (X, Y).**
+*Adds a main pizza store with the specified name at coordinates (X, Y).
 
 ### Add Pizza Store Branch
 
 
 ```Add-Br [BRANCH_NAME] [PIZZA_STORE_NAME] [X] [Y]```
 
-**Adds a branch with the specified name for an existing pizza store at coordinates (X, Y).**
+*Adds a branch with the specified name for an existing pizza store at coordinates (X, Y).
 
 ### Remove Pizza Store Branch
 
 ```Del-Br [BRANCH_NAME] [X] [Y]```
 
-**Removes the branch of a pizza store at the specified coordinates.**
+*Removes the branch of a pizza store at the specified coordinates.
 
 ### List All Pizza Stores in a Neighborhood
 
 ```List-P [NEIGHBORHOOD_NAME]```
 
-**Lists all pizza stores located within the specified neighborhood.**
+*Lists all pizza stores located within the specified neighborhood.
 
 ### List All Branches of a Pizza Store
 
 ```List-Brs [PIZZA_STORE_NAME]```
 
-**Lists all branches of the specified pizza store.**
+*Lists all branches of the specified pizza store.
 
 ### Find Nearest Pizza Store
 
 ```Near-P [X] [Y]```
 
-**Finds the nearest pizza store to the specified coordinates.**
+*Finds the nearest pizza store to the specified coordinates.
 
 ### Find Nearest Branch of a Pizza Store
 
 ```Near-Br [PIZZA_STORE_NAME] [X] [Y]```
 
-**Finds the nearest branch of the specified pizza store to the specified coordinates.**
+*Finds the nearest branch of the specified pizza store to the specified coordinates.
 
 ### List All Accessible Pizza Stores
 
 ```Avail-P [X] [Y] [RADIUS]```
 
-**Lists all pizza stores within the specified radius from the given coordinates.**
+*Lists all pizza stores within the specified radius from the given coordinates.
 
 ### Find Pizza Store with Most Branches
 
 ```Most-Brs```
 
-**Finds the pizza store with the most branches.**
+*Finds the pizza store with the most branches.
 
 ### Undo Operations
 
 ```Undo [NUMBER_OF_STEPS]```
 
-**Reverts the program to a previous state based on the specified number of undo steps.**
+*Reverts the program to a previous state based on the specified number of undo steps.
 
 ### Example:
 ```
@@ -111,6 +111,7 @@ List-P Downtown
 Near-P 5 5
 Undo 1
 ```
+
 
 > [!NOTE]
 
