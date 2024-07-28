@@ -115,7 +115,7 @@ Undo 1
 
 ## NOTE
 
-+ All searches and queries are based on the KD-Tree data structure.
++ All searches and queries are based on the 2D-Tree data structure.
 
 + Proper error handling is implemented for invalid inputs and operations.
 
