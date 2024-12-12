@@ -1,0 +1,10 @@
+Add-P [name] (x,y) : Adds a main pizzeria.
+Add-Br [name] [main Branch name] (x,y) : Adds a sub-pizzeria branch.
+List-P [name] : Displays pizzerias in the neighborhood.
+List-Br [name] : Shows coordinates of all branches for the specified pizzeria.
+Near-P (x,y) : Displays the closest pizzeria to the given point.
+Near-Br [name] (x,y): Shows the nearest branch of the specified pizzeria to the given point.
+Avail-P R (x,y) : Lists pizzerias within a distance of R from the specified point.
+Most-Brs : Displays the pizzeria with the most branches.
+Undo Time : Preferred time Command :Preferred command: Reverts to a specified time and command.
+Redo: Returns to the current time.
