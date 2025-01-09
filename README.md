@@ -1,11 +1,11 @@
 # Data Structures Project
 
-## 📋 Overview
+## Overview
 This project is a data structures assignment focused on managing a set of pizza stores and their branches using data structures like **Hash Tables**, **Linked Lists**, and **2D-Trees**. It supports various operations such as adding and removing stores, managing branches, searching for nearby stores, and undoing previous operations.
 
 ---
 
-## 🚀 Features
+## Features
 
 - **Add Neighborhood:** Add a neighborhood with specified rectangular coordinates.
 - **Add Main Pizza Store:** Add a main pizza store at specified coordinates.
@@ -21,13 +21,13 @@ This project is a data structures assignment focused on managing a set of pizza 
 
 ---
 
-## ⚙️ Requirements
+## Requirements
 - C++ compiler supporting C++11 or later
 - Console for input and output
 
 ---
 
-## 💻 Commands
+## Commands
 
 ### **Add Neighborhood**
 ```bash
@@ -97,7 +97,7 @@ Undo [NUMBER_OF_STEPS]
 
 ---
 
-## 📚 Example
+## Example
 ```bash
 Add-N Downtown 0 0 10 10
 Add-P PizzaHut 5 5
@@ -109,16 +109,12 @@ Undo 1
 
 ---
 
-## ⚠️ Important Notes
+## Important Notes
 
 - All searches and queries are based on the **2D-Tree** data structure.
 - **Hash Tables** and **Linked Lists** are used for efficient data storage and management.
 - Comprehensive error handling is implemented for invalid inputs and operations.
 - The project follows object-oriented principles and adheres to C++ best practices.
 
----
-
-## ⭐ Support the Project
-If you found this project helpful, consider giving it a **Star** ⭐ on GitHub! Contributions and suggestions are always welcome.
 
 
